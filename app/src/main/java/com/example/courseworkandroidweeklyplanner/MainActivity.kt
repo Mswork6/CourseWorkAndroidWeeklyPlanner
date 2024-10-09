@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -19,6 +20,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -64,9 +66,12 @@ class MainActivity : ComponentActivity() {
                         LazyColumn {
                             itemsIndexed(dayData) { _, item ->
                                 DayItem(item)
+                                TaskCard()
                             }
+
                         }
                     }
+
                 }
             }
         }
@@ -181,6 +186,40 @@ fun NavButtons(startOfWeek: LocalDate, endOfWeek: LocalDate) {
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
                 contentDescription = null
             )
+        }
+    }
+}
+
+@Preview
+@Composable
+fun TaskCard() {
+    Card(
+        shape = RoundedCornerShape(15.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(225, 229, 229, 255)
+        ),
+        elevation = CardDefaults.cardElevation(2.dp),
+        modifier = Modifier
+            .padding(start = 20.dp, end = 10.dp,
+                top = 5.dp, bottom = 5.dp )
+            .fillMaxWidth()
+    ) {
+        Row(modifier = Modifier
+            .padding(vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            Row(modifier = Modifier
+                .weight(5f)
+                .padding(start = 10.dp)) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.icon_checkbox_unchecked),
+                    contentDescription = null
+                )
+                Text("Отвезти бананы в грузию")
+            }
+            Icon(modifier = Modifier
+                .weight(1f),
+                imageVector = Icons.Default.Notifications,
+                contentDescription = null)
         }
     }
 }
