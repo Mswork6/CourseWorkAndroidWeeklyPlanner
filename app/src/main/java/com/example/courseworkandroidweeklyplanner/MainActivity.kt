@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
@@ -28,6 +27,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -83,7 +83,7 @@ fun DayItem(day: Day) {
     Card(
         shape = RoundedCornerShape(15.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(225, 229, 229, 255)
+            containerColor = MaterialTheme.colorScheme.primary
         ),
         elevation = CardDefaults.cardElevation(2.dp),
         modifier = Modifier
@@ -152,7 +152,7 @@ fun Buttons() {
 fun AddButton() {
     FloatingActionButton(
         onClick = {},
-        containerColor = Color(38, 118, 222),
+        containerColor = MaterialTheme.colorScheme.tertiary,
         contentColor = Color.White,
         shape = CircleShape
     ) {
@@ -196,7 +196,7 @@ fun TaskCard() {
     Card(
         shape = RoundedCornerShape(15.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color(225, 229, 229, 255)
+            containerColor = MaterialTheme.colorScheme.primary
         ),
         elevation = CardDefaults.cardElevation(2.dp),
         modifier = Modifier
