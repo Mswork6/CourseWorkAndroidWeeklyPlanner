@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import com.example.courseworkandroidweeklyplanner.data.dayData
 import com.example.courseworkandroidweeklyplanner.model.DateTimeFormat
 import com.example.courseworkandroidweeklyplanner.model.Day
+import com.example.courseworkandroidweeklyplanner.screens.taskadd.AddTaskScreen
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 import java.time.LocalDate
 
@@ -61,15 +62,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier
                             .padding(innerPadding)
                     ) {
-                        NavButtons(LocalDate.now(), LocalDate.now())
-                        Buttons()
-                        LazyColumn {
-                            itemsIndexed(dayData) { _, item ->
-                                DayItem(item)
-                                TaskCard()
-                            }
-
-                        }
+                        AddTaskScreen()
                     }
 
                 }
@@ -77,6 +70,20 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+@Composable
+fun MainScreen() {
+    NavButtons(LocalDate.now(), LocalDate.now())
+    Buttons()
+    LazyColumn {
+        itemsIndexed(dayData) { _, item ->
+            DayItem(item)
+            TaskCard()
+        }
+
+    }
+}
+
 
 @Composable
 fun DayItem(day: Day) {
