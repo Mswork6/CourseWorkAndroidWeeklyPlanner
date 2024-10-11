@@ -118,7 +118,7 @@ fun DayItem(day: Day) {
                 }) {
                 Icon(
                     imageVector = Icons.Default.KeyboardArrowDown,
-                    contentDescription = null
+                    contentDescription = "taskOpenClose"
                 )
             }
 
@@ -140,14 +140,14 @@ fun Buttons() {
             onClick = {}) {
             Icon(
                 imageVector = Icons.Default.Search,
-                contentDescription = null
+                contentDescription = "searchButton"
             )
         }
 
         IconButton(onClick = {}) {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.baseline_filter_alt_24),
-                contentDescription = null
+                contentDescription = "filterButton"
             )
         }
 
@@ -181,7 +181,7 @@ fun NavButtons(startOfWeek: LocalDate, endOfWeek: LocalDate) {
         IconButton(onClick = {}) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                contentDescription = null
+                contentDescription = "previousWeek"
             )
         }
         Text(
@@ -191,7 +191,7 @@ fun NavButtons(startOfWeek: LocalDate, endOfWeek: LocalDate) {
         IconButton(onClick = {}) {
             Icon(
                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                contentDescription = null
+                contentDescription = "nextWeek"
             )
         }
     }
@@ -207,26 +207,35 @@ fun TaskCard() {
         ),
         elevation = CardDefaults.cardElevation(2.dp),
         modifier = Modifier
-            .padding(start = 20.dp, end = 10.dp,
-                top = 5.dp, bottom = 5.dp )
+            .padding(
+                start = 20.dp, end = 10.dp,
+                top = 5.dp, bottom = 5.dp
+            )
             .fillMaxWidth()
     ) {
-        Row(modifier = Modifier
-            .padding(vertical = 10.dp),
-            verticalAlignment = Alignment.CenterVertically) {
-            Row(modifier = Modifier
-                .weight(5f)
-                .padding(start = 10.dp)) {
+        Row(
+            modifier = Modifier
+                .padding(vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                modifier = Modifier
+                    .weight(5f)
+                    .padding(start = 10.dp)
+            ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.icon_checkbox_unchecked),
-                    contentDescription = null
+                    contentDescription = "taskCheckBox"
                 )
                 Text("Отвезти бананы в грузию")
             }
-            Icon(modifier = Modifier
-                .weight(1f),
+            Icon(
+                modifier = Modifier
+                    .weight(1f),
                 imageVector = Icons.Default.Notifications,
-                contentDescription = null)
+                contentDescription = null
+            )
         }
     }
 }
