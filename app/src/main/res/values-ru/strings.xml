@@ -5,10 +5,15 @@
     <string name="action_add_task">Добавить задачу</string>
     <string name="description_task_title">Название задачи</string>
     <string name="description_task_description">Описание задачи</string>
-    <string name="datefield_name">Дата</string>
-    <string name="datefield_value">Не указано</string>
-    <string name="priorityfield_name">Приоритет</string>
-    <string name="priorityfield_value">Стандартный</string>
-    <string name="notification_field_name">Напоминание</string>
-    <string name="notification_field_value">Не установлено</string>
+    <string name="description_date">Дата</string>
+    <string name="description_not_defined">Не установлено</string>
+    <string name="description_priority">Приоритет</string>
+    <string name="description_basic">Стандартный</string>
+    <string name="description_notification">Напоминание</string>
+    <string name="action_previous_week">Предыдущая неделя</string>
+    <string name="action_next_week">Следующая неделя</string>
+    <string name="description_task_check_box">Отметка выполнения задачи</string>
+    <string name="action_search">Поиск</string>
+    <string name="action_filter">Фильтр</string>
+    <string name="description_show_hide_tasks">Показать / скрыть задачи</string>
 </resources>

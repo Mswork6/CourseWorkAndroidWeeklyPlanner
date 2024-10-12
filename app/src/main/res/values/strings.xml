@@ -4,11 +4,16 @@
     <string name="action_add_task">Add task</string>
     <string name="description_task_title">Task title</string>
     <string name="description_task_description">Task description</string>
-    <string name="datefield_name">Date</string>
-    <string name="datefield_value">Not defined</string>
-    <string name="priorityfield_name">Priority</string>
-    <string name="priorityfield_value">Basic</string>
-    <string name="notification_field_name">Notification</string>
-    <string name="notification_field_value">Not defined</string>
+    <string name="description_date">Date</string>
+    <string name="description_priority">Priority</string>
+    <string name="description_basic">Basic</string>
+    <string name="description_notification">Notification</string>
+    <string name="description_not_defined">Not defined</string>
+    <string name="action_previous_week">Previous week</string>
+    <string name="action_next_week">Next week</string>
+    <string name="description_task_check_box">Task check box</string>
+    <string name="action_search">Search</string>
+    <string name="action_filter">Filter</string>
+    <string name="description_show_hide_tasks">Show / hide tasks</string>
 
 </resources>

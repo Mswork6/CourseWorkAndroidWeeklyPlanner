@@ -1,4 +1,4 @@
-package com.example.courseworkandroidweeklyplanner
+package com.example.courseworkandroidweeklyplanner.presentation
 
 import MainScreen
 import android.os.Bundle
