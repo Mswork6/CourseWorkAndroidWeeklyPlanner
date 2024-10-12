@@ -32,7 +32,7 @@ fun TaskAddScreen(
             navigateBackAction = { /*TODO*/ },
             taskAddAction = { /*TODO*/ }
         )
-    },
+    }
 ) { padding: PaddingValues ->
     var state by remember {
         mutableStateOf(

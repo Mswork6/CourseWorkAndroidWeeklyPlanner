@@ -2,7 +2,11 @@ package com.example.courseworkandroidweeklyplanner.data
 
 import com.example.courseworkandroidweeklyplanner.model.Day
 import com.example.courseworkandroidweeklyplanner.model.DayEnum.*
+import com.example.courseworkandroidweeklyplanner.model.Priority
+import com.example.courseworkandroidweeklyplanner.model.Task
+import com.example.courseworkandroidweeklyplanner.model.WeekDates
 import java.time.LocalDate
+import java.util.UUID
 
 
 val dayData: List<Day> = mutableListOf(
@@ -35,3 +39,18 @@ val dayData: List<Day> = mutableListOf(
         LocalDate.of(2024, 10, 14)
     )
 )
+
+val taskData: List<Task> = mutableListOf(
+    Task(
+        UUID.randomUUID(),
+        "Отвезти бананы в грузию",
+        "Нужно сесть в грузовик и привезти бананы",
+        LocalDate.of(2024, 10, 13),
+        Priority.BASIC,
+        notification = true,
+        isDone = false
+    )
+)
+
+val weekDates = WeekDates(LocalDate.of(2024, 10, 7),
+    LocalDate.of(2024, 10, 14))
