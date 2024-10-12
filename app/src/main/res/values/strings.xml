@@ -4,5 +4,11 @@
     <string name="action_add_task">Add task</string>
     <string name="description_task_title">Task title</string>
     <string name="description_task_description">Task description</string>
+    <string name="datefield_name">Date</string>
+    <string name="datefield_value">Not defined</string>
+    <string name="priorityfield_name">Priority</string>
+    <string name="priorityfield_value">Basic</string>
+    <string name="notification_field_name">Notification</string>
+    <string name="notification_field_value">Not defined</string>
 
 </resources>

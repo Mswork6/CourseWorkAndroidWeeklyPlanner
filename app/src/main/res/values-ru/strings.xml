@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CourseWorkAndroidWeeklyPlanner</string>
+    <string name="action_back">Назад</string>
+    <string name="action_add_task">Добавить задачу</string>
+    <string name="description_task_title">Название задачи</string>
+    <string name="description_task_description">Описание задачи</string>
+    <string name="datefield_name">Дата</string>
+    <string name="datefield_value">Не указано</string>
+    <string name="priorityfield_name">Приоритет</string>
+    <string name="priorityfield_value">Стандартный</string>
+    <string name="notification_field_name">Напоминание</string>
+    <string name="notification_field_value">Не установлено</string>
+</resources>

@@ -11,7 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.courseworkandroidweeklyplanner.R
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 @Composable
@@ -28,11 +30,11 @@ internal fun TaskAddScreenPriorityInputField(
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = "Приоритет",
+            text = stringResource(R.string.priorityfield_name),
             style = MaterialTheme.typography.titleSmall
         )
         Text(
-            text = "Стандартный",
+            text = stringResource(R.string.priorityfield_value),
             style = MaterialTheme.typography.labelSmall
         )
     }

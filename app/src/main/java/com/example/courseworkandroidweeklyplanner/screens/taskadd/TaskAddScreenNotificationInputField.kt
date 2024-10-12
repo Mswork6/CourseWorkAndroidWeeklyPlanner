@@ -18,7 +18,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.courseworkandroidweeklyplanner.R
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 @Composable
@@ -37,11 +39,11 @@ internal fun TaskAddScreenNotificationInputField(
         horizontalAlignment = Alignment.Start
     ) {
         Text(
-            text = "Приоритет",
+            text = stringResource(R.string.notification_field_name),
             style = MaterialTheme.typography.titleSmall
         )
         Text(
-            text = "Стандартный",
+            text = stringResource(R.string.notification_field_value),
             style = MaterialTheme.typography.labelSmall
         )
     }
