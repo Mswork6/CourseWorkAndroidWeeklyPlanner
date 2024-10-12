@@ -1,4 +1,4 @@
-package com.example.courseworkandroidweeklyplanner.screens.taskadd
+package com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -32,7 +32,7 @@ fun TaskAddScreen(
             navigateBackAction = { /*TODO*/ },
             taskAddAction = { /*TODO*/ }
         )
-    },
+    }
 ) { padding: PaddingValues ->
     var state by remember {
         mutableStateOf(
