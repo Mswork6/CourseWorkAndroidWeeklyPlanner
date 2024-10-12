@@ -16,10 +16,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.courseworkandroidweeklyplanner.data.dayData
 import com.example.courseworkandroidweeklyplanner.data.weekDates
-import com.example.courseworkandroidweeklyplanner.screens.main.DayCard
-import com.example.courseworkandroidweeklyplanner.screens.main.MainScreenFloatingActionButton
-import com.example.courseworkandroidweeklyplanner.screens.main.MainScreenNavigationBar
-import com.example.courseworkandroidweeklyplanner.screens.main.MainScreenSearchFilterButtons
+import com.example.courseworkandroidweeklyplanner.presentation.screens.main.DayCard
+import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenFloatingActionButton
+import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenNavigationBar
+import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenSearchFilterButtons
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 

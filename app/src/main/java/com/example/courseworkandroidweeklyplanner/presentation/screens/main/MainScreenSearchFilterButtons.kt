@@ -1,4 +1,4 @@
-package com.example.courseworkandroidweeklyplanner.screens.main
+package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +11,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.courseworkandroidweeklyplanner.R
@@ -31,14 +32,14 @@ fun MainScreenSearchFilterButtons(
     ) {
         Icon(
             imageVector = Icons.Default.Search,
-            contentDescription = "searchButton"
+            contentDescription = stringResource(R.string.action_search)
         )
     }
 
     IconButton(onClick = filterClickAction) {
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.baseline_filter_alt_24),
-            contentDescription = "filterButton"
+            contentDescription = stringResource(R.string.action_filter)
         )
     }
 

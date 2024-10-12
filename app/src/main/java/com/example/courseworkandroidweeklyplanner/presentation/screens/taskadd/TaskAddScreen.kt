@@ -1,4 +1,4 @@
-package com.example.courseworkandroidweeklyplanner.screens.taskadd
+package com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background

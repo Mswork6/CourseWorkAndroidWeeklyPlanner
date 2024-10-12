@@ -1,4 +1,4 @@
-package com.example.courseworkandroidweeklyplanner.screens.main
+package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -13,17 +13,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.courseworkandroidweeklyplanner.R
 import com.example.courseworkandroidweeklyplanner.data.weekDates
-import com.example.courseworkandroidweeklyplanner.model.DateTimeFormat
 import com.example.courseworkandroidweeklyplanner.model.WeekDates
+import com.example.courseworkandroidweeklyplanner.presentation.util.dateToString
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 @Composable
 fun MainScreenNavigationBar(
+    weekDates: WeekDates,
     previousWeekAction: () -> Unit,
     nextWeekAction: () -> Unit,
-    weekDates: WeekDates,
     modifier: Modifier = Modifier
 ) = Row(
     modifier = modifier,
@@ -33,17 +35,14 @@ fun MainScreenNavigationBar(
     IconButton(onClick = previousWeekAction) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-            contentDescription = "previousWeek"
+            contentDescription = stringResource(R.string.action_previous_week)
         )
     }
-    Text(
-        "${weekDates.weekStartDate.format(DateTimeFormat.formatter)} - " +
-                weekDates.weekEndDate.format(DateTimeFormat.formatter)
-    )
+    Text(dateToString(weekDates))
     IconButton(onClick = nextWeekAction) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-            contentDescription = "nextWeek"
+            contentDescription = stringResource(R.string.action_next_week)
         )
     }
 }

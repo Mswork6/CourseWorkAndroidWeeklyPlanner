@@ -1,4 +1,4 @@
-package com.example.courseworkandroidweeklyplanner.screens.main
+package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
 import android.content.res.Configuration
 import androidx.compose.foundation.shape.CircleShape
