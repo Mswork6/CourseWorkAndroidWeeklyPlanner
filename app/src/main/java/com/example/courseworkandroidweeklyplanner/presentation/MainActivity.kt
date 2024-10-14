@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
             CourseWorkAndroidWeeklyPlannerTheme {
                 var viewModel = ViewModelProvider(this, MainViewModelFactory())[MainViewModel::class.java]
 
-                MainScreen()
+                MainScreen(viewModel)
             }
         }
     }
