@@ -1,8 +1,11 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -14,9 +17,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
+import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 
 @Composable
@@ -61,26 +68,31 @@ fun MainScreen(
             LazyColumn {
                 itemsIndexed(state.days) { _, item ->
                     DayCard(
-                        onClick = { },
                         day = item,
-                        modifier = Modifier
-                            .padding(vertical = 8.dp))
+                        onDayItemClick = {viewModel.changeDayCard(item)},
+                        onTaskItemClick = {},
+                        dayItemModifier = Modifier
+                            .padding(top = 16.dp),
+                        taskItemModifier = Modifier
+                            .padding(start = 16.dp, end = 4.dp,
+                                top = 8.dp)
+                    )
                 }
             }
         }
     }
 }
 
-//@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
-//@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-//@Composable
-//private fun MainScreenPreview() {
-//    CourseWorkAndroidWeeklyPlannerTheme {
-//        com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreen(
-//            viewModel = ViewModelProvider(this, MainViewModelFactory())[MainViewModel::class.java],
-//            modifier = Modifier.fillMaxSize()
-//        )
-//    }
-//}
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+private fun MainScreenPreview() {
+    CourseWorkAndroidWeeklyPlannerTheme {
+        MainScreen(
+            viewModel = viewModel(),
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
 
 

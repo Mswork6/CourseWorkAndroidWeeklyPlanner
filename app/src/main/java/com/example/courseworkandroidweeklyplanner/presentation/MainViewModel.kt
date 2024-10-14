@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
+import com.example.courseworkandroidweeklyplanner.domain.usecases.ChangeExpandDayCardUseCase
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetCurrentWeekUseCase
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekDaysUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val getCurrentWeekUseCase: GetCurrentWeekUseCase,
     private val getWeekDaysUseCase: GetWeekDaysUseCase,
+    private val changeExpandDayCardUseCase: ChangeExpandDayCardUseCase
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(MainScreenState())
@@ -46,8 +48,8 @@ class MainViewModel @Inject constructor(
         val previousWeekStart = currentWeekStart.minusWeeks(1)
         val previousWeekEnd = _state.value.weekDates.weekEndDate.minusWeeks(1)
         val weekDates = WeekDates(previousWeekStart, previousWeekEnd)
+        val days = getWeekDaysUseCase.invoke(weekDates)
         viewModelScope.launch {
-            val days = getWeekDaysUseCase.invoke(weekDates)
             _state.value = _state.value.copy(
                 days = days,
                 weekDates = weekDates,
@@ -60,13 +62,26 @@ class MainViewModel @Inject constructor(
         val nextWeekStart = currentWeekStart.plusWeeks(1)
         val nextWeekEnd = _state.value.weekDates.weekEndDate.plusWeeks(1)
         val weekDates = WeekDates(nextWeekStart, nextWeekEnd)
+        val days = getWeekDaysUseCase.invoke(weekDates)
         viewModelScope.launch {
-            val days = getWeekDaysUseCase.invoke(weekDates)
             _state.value = _state.value.copy(
                 days = days,
                 weekDates = weekDates,
             )
         }
+    }
+
+    fun changeDayCard(day: Day) {
+        val newDay = changeExpandDayCardUseCase.invoke(day)
+
+        viewModelScope.launch{
+            _state.value = _state.value.copy(
+                days = _state.value.days.map { existingDay ->
+                    if (existingDay.id == day.id) newDay else existingDay
+                }
+            )
+        }
+
     }
 
 

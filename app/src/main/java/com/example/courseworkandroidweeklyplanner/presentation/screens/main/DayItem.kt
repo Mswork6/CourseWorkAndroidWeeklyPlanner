@@ -1,13 +1,11 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
 import android.content.res.Configuration
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -16,22 +14,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.courseworkandroidweeklyplanner.R
-import com.example.courseworkandroidweeklyplanner.domain.models.Priority
-import com.example.courseworkandroidweeklyplanner.domain.models.Task
+import com.example.courseworkandroidweeklyplanner.domain.models.Day
+import com.example.courseworkandroidweeklyplanner.domain.models.DayEnum.MONDAY
+import com.example.courseworkandroidweeklyplanner.presentation.util.dateToString
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 import java.time.LocalDate
-import java.util.UUID
 
 @Composable
-fun TaskCardWithIcon(
+fun DayItem(
+    day: Day,
     onClick: () -> Unit,
-    task: Task,
     modifier: Modifier = Modifier
 ) = Card(
     shape = MaterialTheme.shapes.large,
@@ -39,30 +36,29 @@ fun TaskCardWithIcon(
         containerColor = MaterialTheme.colorScheme.primary
     ),
     elevation = CardDefaults.cardElevation(2.dp),
-    modifier = modifier.clickable(onClick = onClick)
+    onClick = onClick,
+    modifier = modifier
 ) {
     Row(
         modifier = Modifier
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+            .padding(vertical = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
+        Text(
             modifier = Modifier
-                .weight(5f)
-                .padding(start = 12.dp)
-        ) {
-            Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.icon_checkbox_unchecked),
-                contentDescription = stringResource(R.string.description_task_check_box)
-            )
-            Text(task.name)
-        }
+                .weight(2f)
+                .padding(start = 16.dp),
+            text = day.name,
+            fontWeight = FontWeight.SemiBold
+        )
+        Text(
+            modifier = Modifier.weight(2f),
+            text = dateToString(day.date),
+        )
         Icon(
-            modifier = Modifier
-                .weight(1f),
-            imageVector = Icons.Default.Notifications,
-            contentDescription = null
+            modifier = Modifier.weight(1f),
+            imageVector = Icons.Default.KeyboardArrowDown,
+            contentDescription = stringResource(R.string.description_show_hide_tasks)
         )
     }
 }
@@ -70,20 +66,18 @@ fun TaskCardWithIcon(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun TaskCardWithIconPreview() {
+private fun DayCardPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
-        TaskCardWithIcon(
+        DayItem(
             onClick = { },
-            task = Task(
-                UUID.randomUUID(),
-                "Отвезти бананы в грузию",
-                "Нужно сесть в грузовик и привезти бананы",
-                LocalDate.of(2024, 10, 13),
-                Priority.BASIC,
-                notification = true,
-                isDone = false
+            day = Day(
+                id = 0,
+                name = MONDAY.description,
+                date = LocalDate.of(2024, 10, 8),
+                isExpanded = true
             ),
             modifier = Modifier.fillMaxWidth()
         )
+
     }
 }
