@@ -1,8 +1,6 @@
-package com.example.courseworkandroidweeklyplanner.model
+package com.example.courseworkandroidweeklyplanner.domain.models
 
 import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import java.time.LocalDate
 
 @Immutable

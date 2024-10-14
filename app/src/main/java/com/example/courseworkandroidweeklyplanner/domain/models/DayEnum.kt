@@ -1,4 +1,4 @@
-package com.example.courseworkandroidweeklyplanner.model
+package com.example.courseworkandroidweeklyplanner.domain.models
 
 
 

@@ -1,10 +1,10 @@
 package com.example.courseworkandroidweeklyplanner.data
 
-import com.example.courseworkandroidweeklyplanner.model.Day
-import com.example.courseworkandroidweeklyplanner.model.DayEnum.*
-import com.example.courseworkandroidweeklyplanner.model.Priority
-import com.example.courseworkandroidweeklyplanner.model.Task
-import com.example.courseworkandroidweeklyplanner.model.WeekDates
+import com.example.courseworkandroidweeklyplanner.domain.models.Day
+import com.example.courseworkandroidweeklyplanner.domain.models.DayEnum.*
+import com.example.courseworkandroidweeklyplanner.domain.models.Priority
+import com.example.courseworkandroidweeklyplanner.domain.models.Task
+import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import java.time.LocalDate
 import java.util.UUID
 

@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.courseworkandroidweeklyplanner.R
 import com.example.courseworkandroidweeklyplanner.data.weekDates
-import com.example.courseworkandroidweeklyplanner.model.WeekDates
+import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import com.example.courseworkandroidweeklyplanner.presentation.util.dateToString
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 

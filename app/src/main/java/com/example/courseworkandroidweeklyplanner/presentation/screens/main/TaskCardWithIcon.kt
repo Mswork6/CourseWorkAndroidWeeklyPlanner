@@ -22,8 +22,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.courseworkandroidweeklyplanner.R
-import com.example.courseworkandroidweeklyplanner.model.Priority
-import com.example.courseworkandroidweeklyplanner.model.Task
+import com.example.courseworkandroidweeklyplanner.domain.models.Priority
+import com.example.courseworkandroidweeklyplanner.domain.models.Task
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 import java.time.LocalDate
 import java.util.UUID
