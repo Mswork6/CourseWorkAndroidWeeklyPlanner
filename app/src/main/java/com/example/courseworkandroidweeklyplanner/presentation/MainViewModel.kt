@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -31,10 +32,12 @@ class MainViewModel @Inject constructor(
         val weekDates = getCurrentWeekUseCase.invoke()
         viewModelScope.launch {
             val days = getWeekDaysUseCase.invoke(weekDates)
-            _state.value = MainScreenState(
-                days = days,
-                weekDates = weekDates
-            )
+            _state.update {
+                MainScreenState(
+                    days = days,
+                    weekDates = weekDates
+                )
+            }
         }
     }
 
@@ -73,3 +76,11 @@ data class MainScreenState(
     val days: List<Day> = emptyList(),
     val weekDates: WeekDates = WeekDates(LocalDate.now(), LocalDate.now())
 )
+
+sealed interface State {
+    data object Loading : State
+    data class Base(
+        val days: List<Day>,
+        val weekDates: WeekDates
+    )
+}

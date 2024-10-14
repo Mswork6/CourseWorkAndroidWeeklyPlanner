@@ -1,12 +1,11 @@
 package com.example.courseworkandroidweeklyplanner.presentation
 
-import MainScreen
+import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,7 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CourseWorkAndroidWeeklyPlannerTheme {
-                MainScreen(viewModel)
+                MainScreen()
             }
         }
     }

@@ -1,3 +1,5 @@
+package com.example.courseworkandroidweeklyplanner.presentation.screens.main
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -13,16 +15,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
-import com.example.courseworkandroidweeklyplanner.presentation.screens.main.DayCard
-import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenFloatingActionButton
-import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenNavigationBar
-import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenSearchFilterButtons
 
 
 @Composable
 fun MainScreen(
-    viewModel : MainViewModel,
+    viewModel: MainViewModel = viewModel(),
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.state.collectAsState()
@@ -77,7 +76,7 @@ fun MainScreen(
 //@Composable
 //private fun MainScreenPreview() {
 //    CourseWorkAndroidWeeklyPlannerTheme {
-//        MainScreen(
+//        com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreen(
 //            viewModel = ViewModelProvider(this, MainViewModelFactory())[MainViewModel::class.java],
 //            modifier = Modifier.fillMaxSize()
 //        )
