@@ -17,5 +17,6 @@
     <string name="description_show_hide_tasks">Show / hide tasks</string>
     <string name="description_confirm">Confirm</string>
     <string name="description_cancel">Cancel</string>
+    <string name="descipition_dayitem_animation">DayItem animation</string>
 
 </resources>

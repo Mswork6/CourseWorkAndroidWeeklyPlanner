@@ -18,4 +18,5 @@
     <string name="description_show_hide_tasks">Показать / скрыть задачи</string>
     <string name="description_confirm">Подтвердить</string>
     <string name="description_cancel">Отмена</string>
+    <string name="descipition_dayitem_animation">Анимация карточки дня</string>
 </resources>
