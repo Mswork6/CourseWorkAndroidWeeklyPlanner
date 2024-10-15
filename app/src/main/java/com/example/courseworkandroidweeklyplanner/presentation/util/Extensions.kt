@@ -1,6 +1,6 @@
 package com.example.courseworkandroidweeklyplanner.presentation.util
 
-import com.example.courseworkandroidweeklyplanner.model.WeekDates
+import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

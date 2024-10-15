@@ -1,42 +1,49 @@
 package com.example.courseworkandroidweeklyplanner.data
 
-import com.example.courseworkandroidweeklyplanner.model.Day
-import com.example.courseworkandroidweeklyplanner.model.DayEnum.*
-import com.example.courseworkandroidweeklyplanner.model.Priority
-import com.example.courseworkandroidweeklyplanner.model.Task
-import com.example.courseworkandroidweeklyplanner.model.WeekDates
+import com.example.courseworkandroidweeklyplanner.domain.models.Day
+import com.example.courseworkandroidweeklyplanner.domain.models.DayEnum.*
+import com.example.courseworkandroidweeklyplanner.domain.models.Priority
+import com.example.courseworkandroidweeklyplanner.domain.models.Task
+import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import java.time.LocalDate
 import java.util.UUID
 
 
 val dayData: List<Day> = mutableListOf(
-    Day(
+    Day(0,
         MONDAY.description,
-        LocalDate.of(2024, 10, 8)
+        LocalDate.of(2024, 10, 8),
+        false
     ),
-    Day(
+    Day(1,
         TUESDAY.description,
-        LocalDate.of(2024, 10, 9)
+        LocalDate.of(2024, 10, 9),
+        false
     ),
-    Day(
+    Day(2,
         WEDNESDAY.description,
-        LocalDate.of(2024, 10, 10)
+        LocalDate.of(2024, 10, 10),
+        false
     ),
-    Day(
+    Day(3,
         THURSDAY.description,
-        LocalDate.of(2024, 10, 11)
+        LocalDate.of(2024, 10, 11),
+        false
     ),
-    Day(
+    Day(4,
         FRIDAY.description,
-        LocalDate.of(2024, 10, 12)
+        LocalDate.of(2024, 10, 12),
+        false
     ),
-    Day(
+    Day(5,
         SATURDAY.description,
-        LocalDate.of(2024, 10, 13)
+        LocalDate.of(2024, 10, 13),
+        false
     ),
-    Day(
+    Day(6,
         SUNDAY.description,
-        LocalDate.of(2024, 10, 14)
+        LocalDate.of(2024, 10, 14),
+        false
     )
 )
 

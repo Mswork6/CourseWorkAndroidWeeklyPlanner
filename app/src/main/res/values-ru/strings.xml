@@ -16,4 +16,6 @@
     <string name="action_search">Поиск</string>
     <string name="action_filter">Фильтр</string>
     <string name="description_show_hide_tasks">Показать / скрыть задачи</string>
+    <string name="description_confirm">Подтвердить</string>
+    <string name="description_cancel">Отмена</string>
 </resources>

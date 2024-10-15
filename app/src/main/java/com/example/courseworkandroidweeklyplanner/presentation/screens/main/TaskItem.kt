@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -14,7 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,7 +31,7 @@ import java.time.LocalDate
 import java.util.UUID
 
 @Composable
-fun TaskCardWithoutIcon(
+fun TaskItem(
     task: Task,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -47,32 +51,59 @@ fun TaskCardWithoutIcon(
     ) {
         Row(
             modifier = Modifier
+                .weight(4f)
                 .padding(start = 12.dp)
         ) {
             Icon(
-                imageVector = ImageVector.vectorResource(R.drawable.icon_checkbox_unchecked),
-                contentDescription = stringResource(R.string.description_task_check_box)
+                imageVector = when (task.isDone) {
+                    true -> ImageVector.vectorResource(R.drawable.icon_checkbox_done)
+                    false -> ImageVector.vectorResource(R.drawable.baseline_check_box_outline_blank_24)
+                },
+                contentDescription = stringResource(R.string.description_task_check_box),
+                tint = if (task.isDone) {
+                    Color.Unspecified
+                } else {
+                    when (task.priority) {
+                        Priority.LOW -> colorResource(R.color.gray)
+                        Priority.BASIC -> colorResource(R.color.black)
+                        Priority.HIGH -> colorResource(R.color.red)
+                    }
+                },
+
+                )
+            Text(
+                text = task.name,
+                modifier = Modifier
+                    .padding(start = 4.dp)
             )
-            Text(task.name)
         }
+        if (task.notification) {
+            Icon(
+                modifier = Modifier
+                    .weight(1f),
+                imageVector = Icons.Default.Notifications,
+                contentDescription = null
+            )
+        }
+
     }
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-private fun TaskCardWithoutIconPreview() {
+private fun TaskCardWithIconPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
-        TaskCardWithoutIcon(
+        TaskItem(
             onClick = { },
             task = Task(
                 UUID.randomUUID(),
                 "Отвезти бананы в грузию",
                 "Нужно сесть в грузовик и привезти бананы",
                 LocalDate.of(2024, 10, 13),
-                Priority.BASIC,
+                Priority.HIGH,
                 notification = true,
-                isDone = false
+                isDone = true
             ),
             modifier = Modifier.fillMaxWidth()
         )
