@@ -104,6 +104,7 @@ private fun TaskCardWithIconPreview() {
                 LocalDate.of(2024, 10, 13),
                 Priority.HIGH,
                 notification = true,
+                notificationTime = null,
                 isDone = true
             ),
             modifier = Modifier.fillMaxWidth()

@@ -55,6 +55,7 @@ private fun DayCardPreview() {
                 deadline = LocalDate.of(2024, 10, 25),
                 priority = Priority.HIGH,
                 notification = true,
+                notificationTime = null,
                 isDone = false
             ),
 
@@ -65,6 +66,7 @@ private fun DayCardPreview() {
                 deadline = LocalDate.of(2024, 10, 25),
                 priority = Priority.HIGH,
                 notification = true,
+                notificationTime = null,
                 isDone = false
             )
         )

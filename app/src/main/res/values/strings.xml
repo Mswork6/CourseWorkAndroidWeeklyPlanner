@@ -18,5 +18,10 @@
     <string name="description_confirm">Confirm</string>
     <string name="description_cancel">Cancel</string>
     <string name="descipition_dayitem_animation">DayItem animation</string>
+    <string name="action_complete_task">Complete task</string>
+    <string name="action_cancel_completion_of_task">Undo task completion</string>
+    <string name="action_open_task">Open task</string>
+    <string name="action_edit_task">Edit task</string>
+    <string name="action_delete_task">Delete task</string>
 
 </resources>

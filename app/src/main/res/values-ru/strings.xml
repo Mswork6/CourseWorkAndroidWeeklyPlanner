@@ -19,4 +19,9 @@
     <string name="description_confirm">Подтвердить</string>
     <string name="description_cancel">Отмена</string>
     <string name="descipition_dayitem_animation">Анимация карточки дня</string>
+    <string name="action_complete_task">Выполнить задачу</string>
+    <string name="action_cancel_completion_of_task">Отменить выполнение задачи</string>
+    <string name="action_open_task">Открыть задачу</string>
+    <string name="action_edit_task">Редактировать задачу</string>
+    <string name="action_delete_task">Удалить задачу</string>
 </resources>

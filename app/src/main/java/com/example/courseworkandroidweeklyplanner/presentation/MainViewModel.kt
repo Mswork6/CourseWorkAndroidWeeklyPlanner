@@ -2,6 +2,7 @@ package com.example.courseworkandroidweeklyplanner.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepositoryInteractor
 import com.example.courseworkandroidweeklyplanner.domain.interactors.CalendarInteractor
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
@@ -22,7 +23,8 @@ class MainViewModel @Inject constructor(
     private val getWeekUseCase: GetWeekUseCase,
     private val getWeekDaysUseCase: GetWeekDaysUseCase,
     private val changeExpandDayCardUseCase: ChangeExpandDayCardUseCase,
-    private val calendarInteractor: CalendarInteractor
+    private val calendarInteractor: CalendarInteractor,
+    private val taskRepositoryInteractor: TaskRepositoryInteractor
 ) : ViewModel() {
     private val _state = MutableStateFlow(MainScreenState())
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
@@ -30,10 +32,11 @@ class MainViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             launch {
+                taskRepositoryInteractor.init()
                 val weekDates = getWeekUseCase(LocalDate.now())
                 _state.update {
                     MainScreenState(
-                        days = getWeekDaysUseCase(weekDates),
+                        days = getWeekDaysUseCase(weekDates, taskRepositoryInteractor.getData()),
                         weekDates = weekDates
                     )
                 }
@@ -63,7 +66,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    days = getWeekDaysUseCase(weekDates),
+                    days = getWeekDaysUseCase(weekDates, taskRepositoryInteractor.getData()),
                     weekDates = weekDates,
                 )
             }
@@ -78,7 +81,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    days = getWeekDaysUseCase(weekDates),
+                    days = getWeekDaysUseCase(weekDates, taskRepositoryInteractor.getData()),
                     weekDates = weekDates
                 )
             }
@@ -122,7 +125,7 @@ class MainViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         weekDates = weekDates,
-                        days = getWeekDaysUseCase(weekDates)
+                        days = getWeekDaysUseCase(weekDates, taskRepositoryInteractor.getData())
                     )
                 }
             }
