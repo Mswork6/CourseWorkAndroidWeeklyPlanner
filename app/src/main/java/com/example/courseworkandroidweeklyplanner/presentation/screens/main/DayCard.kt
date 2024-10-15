@@ -29,12 +29,7 @@ fun DayCard(
         modifier = dayItemModifier
     )
     AnimatedVisibility(day.isExpanded) {
-        Column(
-            modifier = Modifier
-                .padding(
-
-                )
-        ) {
+        Column {
             for (task in day.tasks) {
                 TaskItem(
                     task = task,

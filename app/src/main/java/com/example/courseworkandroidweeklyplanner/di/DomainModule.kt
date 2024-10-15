@@ -15,23 +15,15 @@ import dagger.hilt.android.components.ViewModelComponent
 class DomainModule {
 
     @Provides
-    fun provideGetCurrentWeekUseCase(): GetWeekUseCase {
-        return GetWeekUseCase()
-    }
+    fun provideGetCurrentWeekUseCase() = GetWeekUseCase()
 
     @Provides
-    fun provideGetWeekDaysUseCase(): GetWeekDaysUseCase {
-        return GetWeekDaysUseCase()
-    }
+    fun provideGetWeekDaysUseCase() = GetWeekDaysUseCase()
 
     @Provides
-    fun provideChangeExpandDayCardUseCase(): ChangeExpandDayCardUseCase {
-        return ChangeExpandDayCardUseCase()
-    }
+    fun provideChangeExpandDayCardUseCase() = ChangeExpandDayCardUseCase()
 
     @Provides
-    fun ProvideCalendarInteractor(): CalendarInteractor {
-        return CalendarInteractor()
-    }
+    fun provideCalendarInteractor() = CalendarInteractor()
 
 }

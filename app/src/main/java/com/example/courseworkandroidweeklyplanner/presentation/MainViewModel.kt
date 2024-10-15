@@ -104,8 +104,8 @@ class MainViewModel @Inject constructor(
     fun dismissCalendar() = calendarInteractor.dismissCalendar()
 
     fun confirmDate(dateMillis: Long?) {
-        calendarInteractor.confirmDate(dateMillis)
         viewModelScope.launch {
+            calendarInteractor.confirmDate(dateMillis)
             _state.update {
                 it.copy(searchDate = calendarInteractor.selectedDate.value)
             }
@@ -113,10 +113,12 @@ class MainViewModel @Inject constructor(
     }
 
     fun searchDate() {
-        _state.value.searchDate?.let { searchDate ->
-            val weekDates = getWeekUseCase(searchDate)
 
-            viewModelScope.launch {
+        viewModelScope.launch {
+
+            _state.value.searchDate?.let { searchDate ->
+                val weekDates = getWeekUseCase(searchDate)
+
                 _state.update {
                     it.copy(
                         weekDates = weekDates,
