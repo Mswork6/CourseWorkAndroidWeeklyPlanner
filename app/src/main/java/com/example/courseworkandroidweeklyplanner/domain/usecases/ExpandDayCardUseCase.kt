@@ -4,7 +4,7 @@ import com.example.courseworkandroidweeklyplanner.domain.models.Day
 
 class ChangeExpandDayCardUseCase {
 
-    fun invoke(day: Day): Day {
+    operator fun invoke(day: Day): Day {
         return Day(
             id = day.id,
             name = day.name,

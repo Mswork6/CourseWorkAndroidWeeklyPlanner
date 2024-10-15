@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
+import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 
@@ -61,7 +62,7 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             MainScreenSearchFilterButtons(
-                searchClickAction = {},
+                searchClickAction = {viewModel.openCalendar()},
                 filterClickAction = {},
                 modifier = Modifier.fillMaxWidth()
             )
@@ -81,6 +82,19 @@ fun MainScreen(
             }
         }
     }
+
+    if (state.isCalendarVisible) {
+        DatePickerModal(
+            onDateSelected = { dateMillis ->
+                viewModel.confirmDate(dateMillis)
+                viewModel.searchDate()
+            },
+            onDismiss = { viewModel.dismissCalendar() }
+        )
+
+    }
+
+
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)

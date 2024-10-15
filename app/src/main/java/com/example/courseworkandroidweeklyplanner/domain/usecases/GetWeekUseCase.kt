@@ -5,12 +5,10 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.temporal.TemporalAdjusters
 
-class GetCurrentWeekUseCase {
-
-    fun invoke() : WeekDates {
-        val today = LocalDate.now()
-        val firstDayOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
-        val lastDayOfWeek = today.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
+class GetWeekUseCase {
+    operator fun invoke(date: LocalDate) : WeekDates {
+        val firstDayOfWeek = date.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+        val lastDayOfWeek = date.with(TemporalAdjusters.nextOrSame(DayOfWeek.SUNDAY))
         return WeekDates(weekStartDate = firstDayOfWeek, weekEndDate = lastDayOfWeek)
     }
 }

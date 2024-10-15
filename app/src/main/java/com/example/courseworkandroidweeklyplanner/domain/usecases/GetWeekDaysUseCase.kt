@@ -9,7 +9,7 @@ import java.time.LocalDate
 import java.util.UUID
 
 class GetWeekDaysUseCase {
-    fun invoke(weekDates: WeekDates): List<Day> {
+    operator fun invoke(weekDates: WeekDates): List<Day> {
         val daysOfWeek = mutableListOf<Day>()
         var currentDate = weekDates.weekStartDate
         var index = 0

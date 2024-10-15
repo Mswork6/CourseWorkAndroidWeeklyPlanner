@@ -15,5 +15,7 @@
     <string name="action_search">Search</string>
     <string name="action_filter">Filter</string>
     <string name="description_show_hide_tasks">Show / hide tasks</string>
+    <string name="description_confirm">Confirm</string>
+    <string name="description_cancel">Cancel</string>
 
 </resources>
