@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
 import com.example.courseworkandroidweeklyplanner.domain.models.DayEnum
 import com.example.courseworkandroidweeklyplanner.domain.models.Priority
@@ -79,7 +80,14 @@ private fun DayCardPreview() {
         DayCard(
             day = day,
             onDayItemClick = { },
-            onTaskItemClick = { }
+            onTaskItemClick = { },
+            dayItemModifier = Modifier
+                .padding(top = 16.dp),
+            taskItemModifier = Modifier
+                .padding(
+                    start = 16.dp, end = 4.dp,
+                    top = 8.dp
+                )
         )
 
     }

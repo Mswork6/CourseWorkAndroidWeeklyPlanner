@@ -40,6 +40,7 @@ fun TaskItem(
     colors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary
     ),
+    //onClick = onClick,
     elevation = CardDefaults.cardElevation(2.dp),
     modifier = modifier.clickable(onClick = onClick)
 ) {
