@@ -68,14 +68,17 @@ fun DayItem(
 @Composable
 private fun DayCardPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
+        val day = Day(
+            id = 0,
+            name = MONDAY.description,
+            date = LocalDate.of(2024, 10, 8),
+            isExpanded = true,
+            tasks = listOf()
+        )
+
         DayItem(
             onClick = { },
-            day = Day(
-                id = 0,
-                name = MONDAY.description,
-                date = LocalDate.of(2024, 10, 8),
-                isExpanded = true
-            ),
+            day = day,
             modifier = Modifier.fillMaxWidth()
         )
 

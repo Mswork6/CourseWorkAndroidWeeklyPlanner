@@ -42,7 +42,8 @@ fun MainScreen(
                 previousWeekAction = { viewModel.loadPreviousWeek() },
                 nextWeekAction = { viewModel.loadNextWeek() },
                 weekDates = state.weekDates,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
                     .statusBarsPadding()
             )
         },
@@ -63,7 +64,7 @@ fun MainScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             MainScreenSearchFilterButtons(
-                searchClickAction = {viewModel.openCalendar()},
+                searchClickAction = { viewModel.openCalendar() },
                 filterClickAction = {},
                 modifier = Modifier.fillMaxWidth()
             )
@@ -71,13 +72,15 @@ fun MainScreen(
                 itemsIndexed(state.days) { _, item ->
                     DayCard(
                         day = item,
-                        onDayItemClick = {viewModel.changeDayCard(item)},
+                        onDayItemClick = { viewModel.changeDayCard(item) },
                         onTaskItemClick = {},
                         dayItemModifier = Modifier
                             .padding(top = 16.dp),
                         taskItemModifier = Modifier
-                            .padding(start = 16.dp, end = 4.dp,
-                                top = 8.dp)
+                            .padding(
+                                start = 16.dp, end = 4.dp,
+                                top = 8.dp
+                            )
                     )
                 }
                 item {
@@ -107,7 +110,6 @@ fun MainScreen(
 private fun MainScreenPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
         MainScreen(
-            viewModel = viewModel(),
             modifier = Modifier.fillMaxSize()
         )
     }

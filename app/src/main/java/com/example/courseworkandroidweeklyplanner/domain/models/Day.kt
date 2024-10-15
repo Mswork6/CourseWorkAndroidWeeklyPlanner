@@ -9,5 +9,5 @@ data class Day(
     val name: String,
     val date: LocalDate,
     val isExpanded: Boolean,
-    val tasks: List<Task> = listOf()
+    val tasks: List<Task>
 )

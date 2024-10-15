@@ -82,7 +82,7 @@ fun TaskItem(
                 modifier = Modifier
                     .weight(1f),
                 imageVector = Icons.Default.Notifications,
-                contentDescription = null
+                contentDescription = stringResource(R.string.description_notification)
             )
         }
 
