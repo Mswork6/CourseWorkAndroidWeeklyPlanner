@@ -1,13 +1,8 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
 import android.content.res.Configuration
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -38,14 +33,14 @@ import java.util.UUID
 fun TaskDialogWindow(
     task: Task,
     onDismissRequest: () -> Unit,
-    onCompleteTask: () -> Unit,
+    onCompleteTask: (task: Task) -> Unit,
     onOpenTask: () -> Unit,
     onEditTask: () -> Unit,
-    onDeleteTask: () -> Unit,
+    onDeleteTask: (id: UUID) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
-        // Draw a rectangle shape with rounded corners inside the dialog
+
         Card(
             modifier = modifier,
             shape = RoundedCornerShape(16.dp),
@@ -60,7 +55,7 @@ fun TaskDialogWindow(
 
                 TextButton(
                     onClick = {
-                        onCompleteTask()
+                        onCompleteTask(task)
                         onDismissRequest()
                     },
                     colors = ButtonDefaults.textButtonColors(
@@ -147,7 +142,7 @@ fun TaskDialogWindow(
 
                 TextButton(
                     onClick = {
-                        onDeleteTask()
+                        onDeleteTask(task.id)
                         onDismissRequest()
                     },
                     colors = ButtonDefaults.textButtonColors(

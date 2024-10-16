@@ -1,6 +1,7 @@
 package com.example.courseworkandroidweeklyplanner.di
 
 import com.example.courseworkandroidweeklyplanner.domain.interactors.CalendarInteractor
+import com.example.courseworkandroidweeklyplanner.domain.interactors.TaskDialogWindowInteractor
 import com.example.courseworkandroidweeklyplanner.domain.usecases.ChangeExpandDayCardUseCase
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekUseCase
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekDaysUseCase
@@ -25,5 +26,8 @@ class DomainModule {
 
     @Provides
     fun provideCalendarInteractor() = CalendarInteractor()
+
+    @Provides
+    fun provideTaskDialogWindowInteractor() = TaskDialogWindowInteractor()
 
 }

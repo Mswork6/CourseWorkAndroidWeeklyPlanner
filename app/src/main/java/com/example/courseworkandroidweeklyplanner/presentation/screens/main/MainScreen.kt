@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.courseworkandroidweeklyplanner.data.taskData
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
@@ -73,7 +74,7 @@ fun MainScreen(
                     DayCard(
                         day = item,
                         onDayItemClick = { viewModel.changeDayCard(item) },
-                        onTaskItemClick = {},
+                        onTaskItemClick = { viewModel.openTaskDialogWindow() },
                         dayItemModifier = Modifier
                             .padding(top = 16.dp),
                         taskItemModifier = Modifier
@@ -98,7 +99,17 @@ fun MainScreen(
             },
             onDismiss = { viewModel.dismissCalendar() }
         )
+    }
 
+    if (state.isTaskDialogWindowVisible) {
+        TaskDialogWindow(
+            task = taskData[0],
+            onDismissRequest = { viewModel.dismissDialogWindow() },
+            onCompleteTask = { viewModel.completeTask(task = taskData[0]) },
+            onOpenTask = { },
+            onEditTask = { },
+            onDeleteTask = { viewModel.deleteTask(taskData[0].id) }
+            )
     }
 
 
