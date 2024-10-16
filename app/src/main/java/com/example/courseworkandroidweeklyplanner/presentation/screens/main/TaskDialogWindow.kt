@@ -3,6 +3,7 @@ package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -48,7 +49,8 @@ fun TaskDialogWindow(
             )
         ) {
             Column(
-                modifier = Modifier,
+                modifier = Modifier.
+                padding(vertical = 16.dp),
                 horizontalAlignment = Alignment.Start,
             ) {
                 TextButton(
@@ -62,6 +64,7 @@ fun TaskDialogWindow(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 4.dp)
+                        .height(60.dp)
                 ) {
                     Text(
                         text = when (task.isDone) {
@@ -93,6 +96,7 @@ fun TaskDialogWindow(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 4.dp)
+                        .height(60.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.action_open_task),
@@ -120,6 +124,7 @@ fun TaskDialogWindow(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 4.dp)
+                        .height(60.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.action_edit_task),
@@ -147,6 +152,7 @@ fun TaskDialogWindow(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 4.dp)
+                        .height(60.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.action_delete_task),
