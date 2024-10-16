@@ -1,14 +1,16 @@
 package com.example.courseworkandroidweeklyplanner.domain.models
 
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.util.*
 
 data class Task(
     val id: UUID,
-    var name: String,
-    var description: String,
-    var deadline: LocalDate,
-    var priority: Priority,
-    var notification: Boolean,
-    var  isDone: Boolean
+    val name: String,
+    val description: String,
+    val deadline: LocalDate,
+    val priority: Priority,
+    val notification: Boolean,
+    val notificationTime: LocalDateTime?,
+    val  isDone: Boolean
     )
