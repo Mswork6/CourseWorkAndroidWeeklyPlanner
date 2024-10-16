@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepositoryInteractor
 import com.example.courseworkandroidweeklyplanner.domain.interactors.CalendarInteractor
-import com.example.courseworkandroidweeklyplanner.domain.interactors.TaskDialogWindowInteractor
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
 import com.example.courseworkandroidweeklyplanner.domain.models.Task
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
@@ -27,8 +26,7 @@ class MainViewModel @Inject constructor(
     private val getWeekDaysUseCase: GetWeekDaysUseCase,
     private val changeExpandDayCardUseCase: ChangeExpandDayCardUseCase,
     private val calendarInteractor: CalendarInteractor,
-    private val taskRepositoryInteractor: TaskRepositoryInteractor,
-    private val taskDialogWindowInteractor: TaskDialogWindowInteractor
+    private val taskRepositoryInteractor: TaskRepositoryInteractor
 ) : ViewModel() {
     private val _state = MutableStateFlow(MainScreenState())
     val state: StateFlow<MainScreenState> = _state.asStateFlow()
@@ -59,13 +57,13 @@ class MainViewModel @Inject constructor(
                     }
                 }
             }
-            launch {
-                taskDialogWindowInteractor.isTaskDialogWindowVisible.collect { windowVisible ->
-                    _state.update {
-                        it.copy(isTaskDialogWindowVisible = windowVisible)
-                    }
-                }
-            }
+//            launch {
+//                taskDialogWindowInteractor.isTaskDialogWindowVisible.collect { windowVisible ->
+//                    _state.update {
+//                        it.copy(isTaskDialogWindowVisible = windowVisible)
+//                    }
+//                }
+//            }
         }
     }
 
@@ -105,7 +103,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    days = _state.value.days.map { existingDay ->
+                    days = it.days.map { existingDay ->
                         if (existingDay.id == day.id) newDay else existingDay
                     }
                 )
@@ -143,33 +141,49 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun openTaskDialogWindow() = taskDialogWindowInteractor.openDialogWindow()
+    fun openTaskDialogWindow(task: Task) {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(currentTask = task)
+            }
+        }
+    }
 
-    fun dismissDialogWindow() = taskDialogWindowInteractor.dismissDialogWindow()
+
+    fun dismissDialogWindow() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(currentTask = null)
+            }
+        }
+    }
 
     fun completeTask(task: Task) {
         viewModelScope.launch {
-            val updatedTask = taskDialogWindowInteractor.completeTask(task)
+            val updatedTask = task.copy(isDone = task.isDone.not())
             taskRepositoryInteractor.updateTask(updatedTask)
-            val days = getWeekDaysUseCase(_state.value.weekDates, taskRepositoryInteractor.getData())
+            val days = getWeekDaysUseCase(
+                weekDates = _state.value.weekDates,
+                taskList = taskRepositoryInteractor.getData()
+            )
             _state.update {
                 it.copy(
-                    days = days
+                    days = days,
+                    currentTask = null
                 )
             }
         }
-
-
     }
 
     fun deleteTask(id: UUID) {
         viewModelScope.launch {
-
             taskRepositoryInteractor.deleteTask(id)
-            val days = getWeekDaysUseCase(_state.value.weekDates, taskRepositoryInteractor.getData())
+            val days =
+                getWeekDaysUseCase(_state.value.weekDates, taskRepositoryInteractor.getData())
             _state.update {
                 it.copy(
-                    days = days
+                    days = days,
+                    currentTask = null
                 )
             }
         }
@@ -183,7 +197,8 @@ data class MainScreenState(
     val weekDates: WeekDates = WeekDates(LocalDate.now(), LocalDate.now()),
     val isCalendarVisible: Boolean = false,
     val searchDate: LocalDate? = null,
-    val isTaskDialogWindowVisible: Boolean = false
+    //val isTaskDialogWindowVisible: Boolean = false,
+    val currentTask: Task? = null
 
 )
 

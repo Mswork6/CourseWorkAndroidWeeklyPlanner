@@ -39,8 +39,7 @@ fun TaskDialogWindow(
     onDeleteTask: (id: UUID) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Dialog(onDismissRequest = { onDismissRequest() }) {
-
+    Dialog(onDismissRequest = onDismissRequest) {
         Card(
             modifier = modifier,
             shape = RoundedCornerShape(16.dp),
@@ -52,7 +51,6 @@ fun TaskDialogWindow(
                 modifier = Modifier,
                 horizontalAlignment = Alignment.Start,
             ) {
-
                 TextButton(
                     onClick = {
                         onCompleteTask(task)
@@ -73,7 +71,6 @@ fun TaskDialogWindow(
                         modifier = Modifier
                             .weight(3f)
                     )
-
                     Icon(
                         imageVector = when (task.isDone) {
                             false -> ImageVector.vectorResource(R.drawable.icon_taskdialogwindow_complete)
@@ -83,7 +80,6 @@ fun TaskDialogWindow(
                         modifier = Modifier
                             .weight(1f),
                     )
-
                 }
 
                 TextButton(
@@ -164,9 +160,7 @@ fun TaskDialogWindow(
                         modifier = Modifier
                             .weight(1f),
                     )
-
                 }
-
             }
         }
     }
@@ -198,7 +192,6 @@ private fun DayCardPreview() {
             modifier = Modifier
                 .width(250.dp),
         )
-
     }
 }
 

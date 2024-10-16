@@ -74,13 +74,15 @@ fun MainScreen(
                     DayCard(
                         day = item,
                         onDayItemClick = { viewModel.changeDayCard(item) },
-                        onTaskItemClick = { viewModel.openTaskDialogWindow() },
+                        onTaskItemClick = { task -> viewModel.openTaskDialogWindow(task) },
                         dayItemModifier = Modifier
+                            .fillMaxWidth()
                             .padding(top = 16.dp),
                         taskItemModifier = Modifier
+                            .fillMaxWidth()
                             .padding(
-                                start = 16.dp, end = 4.dp,
-                                top = 8.dp
+                                start = 16.dp,
+                                top = 16.dp,
                             )
                     )
                 }
@@ -101,15 +103,15 @@ fun MainScreen(
         )
     }
 
-    if (state.isTaskDialogWindowVisible) {
+    state.currentTask?.let { task ->
         TaskDialogWindow(
-            task = taskData[0],
+            task = task,
             onDismissRequest = { viewModel.dismissDialogWindow() },
-            onCompleteTask = { viewModel.completeTask(task = taskData[0]) },
+            onCompleteTask = { viewModel.completeTask(it) },
             onOpenTask = { },
             onEditTask = { },
-            onDeleteTask = { viewModel.deleteTask(taskData[0].id) }
-            )
+            onDeleteTask = { viewModel.deleteTask(it) }
+        )
     }
 
 

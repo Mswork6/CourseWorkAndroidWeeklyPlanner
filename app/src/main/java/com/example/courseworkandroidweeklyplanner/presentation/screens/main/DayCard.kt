@@ -20,7 +20,7 @@ import java.util.UUID
 fun DayCard(
     day: Day,
     onDayItemClick: () -> Unit,
-    onTaskItemClick: () -> Unit,
+    onTaskItemClick: (Task) -> Unit,
     dayItemModifier: Modifier = Modifier,
     taskItemModifier: Modifier = Modifier
 ) = Column {
@@ -34,7 +34,7 @@ fun DayCard(
             for (task in day.tasks) {
                 TaskItem(
                     task = task,
-                    onClick = onTaskItemClick,
+                    onClick = { onTaskItemClick(task) },
                     modifier = taskItemModifier
                 )
             }
@@ -83,12 +83,13 @@ private fun DayCardPreview() {
             day = day,
             onDayItemClick = { },
             onTaskItemClick = { },
-            dayItemModifier = Modifier
-                .padding(top = 16.dp),
+            dayItemModifier = Modifier,
+                //.padding(top = 16.dp),
             taskItemModifier = Modifier
                 .padding(
-                    start = 16.dp, end = 4.dp,
-                    top = 8.dp
+                    start = 16.dp,
+                    top = 16.dp,
+                    bottom = 16.dp
                 )
         )
 
