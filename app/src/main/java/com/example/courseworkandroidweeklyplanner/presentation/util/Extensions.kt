@@ -1,5 +1,7 @@
 package com.example.courseworkandroidweeklyplanner.presentation.util
 
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SelectableDates
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import java.time.Instant
 import java.time.LocalDate
@@ -23,3 +25,14 @@ fun convertToLocalDate(dateMillis: Long): LocalDate = Instant
 fun dateToString(weekDates: WeekDates): String =
     "${dateToString(weekDates.weekStartDate)} - " +
             dateToString(weekDates.weekEndDate)
+
+@OptIn(ExperimentalMaterial3Api::class)
+object PastOrPresentSelectableDates: SelectableDates {
+    override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+        return utcTimeMillis >= System.currentTimeMillis()
+    }
+
+    override fun isSelectableYear(year: Int): Boolean {
+        return year >= LocalDate.now().year
+    }
+}

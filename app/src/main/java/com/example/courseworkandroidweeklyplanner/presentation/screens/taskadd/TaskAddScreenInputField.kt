@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,9 +35,12 @@ internal data class TaskAddInputFieldState(
 
 @Composable
 internal fun TaskAddScreenInputField(
-    state: TaskAddInputFieldState,
+    nameText: String,
+    taskNameError: String?,
+    descriptionText: String?,
     onTaskTitleValueChange: (String) -> Unit,
     onTaskDescriptionValueChange: (String) -> Unit,
+
     modifier: Modifier = Modifier,
 ) = Column(
     modifier = modifier,
@@ -44,7 +48,7 @@ internal fun TaskAddScreenInputField(
     verticalArrangement = Arrangement.spacedBy(8.dp)
 ) {
     BasicTextField(
-        value = state.taskTitle,
+        value = nameText,
         onValueChange = onTaskTitleValueChange,
         modifier = Modifier
             .fillMaxWidth()
@@ -60,7 +64,7 @@ internal fun TaskAddScreenInputField(
             },
         decorationBox = { innerTextField ->
             Box(modifier = Modifier.padding(8.dp)) {
-                if (state.taskTitle.isEmpty()) {
+                if (nameText.isEmpty()) {
                     Text(
                         text = stringResource(id = R.string.description_task_title),
                         color = Color.Gray
@@ -70,8 +74,18 @@ internal fun TaskAddScreenInputField(
             }
         }
     )
+
+    if (taskNameError != null) {
+        Text(
+            text = taskNameError,
+            color = Color.Red,
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier.padding(start = 8.dp)
+        )
+    }
+
     BasicTextField(
-        value = state.taskDescription,
+        value = descriptionText ?: "",
         onValueChange = onTaskDescriptionValueChange,
         modifier = Modifier
             .fillMaxWidth()
@@ -83,7 +97,7 @@ internal fun TaskAddScreenInputField(
             ),
         decorationBox = { innerTextField ->
             Box(modifier = Modifier.padding(8.dp)) {
-                if (state.taskDescription.isEmpty()) {
+                if (descriptionText?.isEmpty() != false) {
                     Text(
                         text = stringResource(id = R.string.description_task_description),
                         color = Color.Gray
@@ -109,7 +123,9 @@ private fun TaskAddScreenInputFieldPreview() {
     }
     CourseWorkAndroidWeeklyPlannerTheme {
         TaskAddScreenInputField(
-            state = state,
+            nameText = "",
+            taskNameError = null,
+            descriptionText = "",
             onTaskTitleValueChange = { state = state.copy(taskTitle = it) },
             onTaskDescriptionValueChange = { state = state.copy(taskDescription = it) },
             modifier = Modifier.fillMaxWidth()

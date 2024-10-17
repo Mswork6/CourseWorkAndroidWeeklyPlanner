@@ -40,7 +40,9 @@ internal fun TaskAddScreenNotificationInputField(
 ) {
     Column(
         modifier = modifier
-            .clickable(onClick = onClick)
+            .clickable(
+                enabled = isChecked,
+                onClick = onClick)
             .weight(3f),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start
