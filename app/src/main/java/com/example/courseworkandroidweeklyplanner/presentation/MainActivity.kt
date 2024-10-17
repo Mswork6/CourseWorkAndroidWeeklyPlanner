@@ -14,13 +14,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+    private val taskScreenViewModel : TaskScreenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             CourseWorkAndroidWeeklyPlannerTheme {
-                TaskAddScreen(viewModel)
+                TaskAddScreen(taskScreenViewModel)
             }
         }
     }
