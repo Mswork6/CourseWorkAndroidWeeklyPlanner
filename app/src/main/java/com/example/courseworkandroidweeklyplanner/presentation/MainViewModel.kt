@@ -119,9 +119,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun searchDate() {
-
         viewModelScope.launch {
-
             _state.value.searchDate?.let { searchDate ->
                 val weekDates = getWeekUseCase(searchDate)
 
@@ -182,6 +180,21 @@ class MainViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun addTask(task: Task) {
+        viewModelScope.launch {
+            taskRepositoryInteractor.addTask(task = task)
+            val days = updateWeekDaysUseCase(
+                daysList = _state.value.days,
+                taskList = taskRepositoryInteractor.getData())
+            _state.update {
+                it.copy(
+                    days = days,
+                )
+            }
+        }
+
     }
 
 
