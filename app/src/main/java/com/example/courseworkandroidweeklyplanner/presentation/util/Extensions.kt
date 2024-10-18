@@ -29,7 +29,11 @@ fun dateToString(weekDates: WeekDates): String =
 @OptIn(ExperimentalMaterial3Api::class)
 object PastOrPresentSelectableDates: SelectableDates {
     override fun isSelectableDate(utcTimeMillis: Long): Boolean {
-        return utcTimeMillis >= System.currentTimeMillis()
+        val selectedDate = Instant.ofEpochMilli(utcTimeMillis)
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate()
+        val today = LocalDate.now()
+        return !selectedDate.isBefore(today)
     }
 
     override fun isSelectableYear(year: Int): Boolean {

@@ -7,6 +7,7 @@ import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
@@ -21,11 +22,12 @@ import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeek
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DatePickerModal(
+    selectableDates: SelectableDates = DatePickerDefaults. AllDates,
     onDateSelected: (Long?) -> Unit,
     onDismiss: () -> Unit
 ) {
     val datePickerState = rememberDatePickerState(
-        selectableDates = PastOrPresentSelectableDates
+        selectableDates = selectableDates
     )
 
     DatePickerDialog(
@@ -70,12 +72,14 @@ fun DatePickerModal(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun TaskAddScreenDateInputFieldPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
         DatePickerModal(
+            selectableDates = PastOrPresentSelectableDates,
             onDateSelected = { },
             onDismiss = { }
         )
