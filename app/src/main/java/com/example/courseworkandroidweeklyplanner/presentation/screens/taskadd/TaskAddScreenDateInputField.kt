@@ -24,10 +24,13 @@ import java.time.LocalDate
 @Composable
 internal fun TaskAddScreenDateInputField(
     selectedDate: LocalDate?,
+    editState: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) = Row(
-    modifier = modifier.clickable(onClick = onClick),
+    modifier = modifier.clickable(
+        onClick = onClick,
+        enabled = editState),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
@@ -58,6 +61,7 @@ private fun TaskAddScreenDateInputFieldPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
         TaskAddScreenDateInputField(
             selectedDate = LocalDate.of(2024, 10, 18),
+            editState = true,
             onClick = {},
             modifier = Modifier.fillMaxWidth()
         )

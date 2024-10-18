@@ -9,7 +9,7 @@ import java.util.UUID
 
 class TaskRepositoryInteractor : TaskRepository {
 
-    private val tasks: SnapshotStateList<Task> = mutableStateListOf()
+    val tasks: SnapshotStateList<Task> = mutableStateListOf()
 
     fun init() {
         for (task in taskData) {
@@ -33,6 +33,8 @@ class TaskRepositoryInteractor : TaskRepository {
     override fun deleteTask(taskId: UUID) {
         tasks.removeAll { it.id == taskId }
     }
+
+    override fun getTask(taskId: UUID): Task = tasks.first { it.id == taskId }
 
 
 }

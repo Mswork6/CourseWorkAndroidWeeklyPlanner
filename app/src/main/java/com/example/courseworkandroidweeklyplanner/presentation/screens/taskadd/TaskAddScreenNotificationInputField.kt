@@ -31,6 +31,7 @@ import java.time.LocalTime
 internal fun TaskAddScreenNotificationInputField(
     selectedTime: LocalTime?,
     isChecked: Boolean,
+    editState: Boolean,
     onClick: () -> Unit,
     onTaskNotificationChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -41,7 +42,7 @@ internal fun TaskAddScreenNotificationInputField(
     Column(
         modifier = modifier
             .clickable(
-                enabled = isChecked,
+                enabled = isChecked && editState,
                 onClick = onClick)
             .weight(3f),
         verticalArrangement = Arrangement.Center,
@@ -62,6 +63,7 @@ internal fun TaskAddScreenNotificationInputField(
     }
     Log.d("lipec", selectedTime.toString())
     Switch(
+        enabled = editState,
         colors = SwitchDefaults.colors(
             checkedTrackColor = Color.White,
             uncheckedTrackColor = Color.White,
@@ -81,11 +83,12 @@ internal fun TaskAddScreenNotificationInputField(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun TaskAddScreenNotificationInputFieldPreview() {
-    var isChecked by remember { mutableStateOf(true) }
+    var isChecked by remember { mutableStateOf(false) }
     CourseWorkAndroidWeeklyPlannerTheme {
         TaskAddScreenNotificationInputField(
             selectedTime = null,
             isChecked = isChecked,
+            editState = false,
             onClick = {},
             onTaskNotificationChange = { isChecked = it },
             modifier = Modifier.fillMaxWidth()

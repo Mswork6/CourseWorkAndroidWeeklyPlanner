@@ -6,6 +6,7 @@ import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepository
 import com.example.courseworkandroidweeklyplanner.domain.interactors.CalendarInteractor
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
 import com.example.courseworkandroidweeklyplanner.domain.models.Task
+import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekDaysUseCase
@@ -150,6 +151,21 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun updateData() {
+        viewModelScope.launch {
+            val days = updateWeekDaysUseCase(
+                daysList = _state.value.days,
+                taskList = taskRepositoryInteractor.getData()
+            )
+            _state.update {
+                it.copy(
+                    days = days,
+                )
+            }
+        }
+    }
+
+
     fun completeTask(task: Task) {
         viewModelScope.launch {
             val updatedTask = task.copy(isDone = task.isDone.not())
@@ -172,7 +188,8 @@ class MainViewModel @Inject constructor(
             taskRepositoryInteractor.deleteTask(id)
             val days = updateWeekDaysUseCase(
                 daysList = _state.value.days,
-                taskList = taskRepositoryInteractor.getData())
+                taskList = taskRepositoryInteractor.getData()
+            )
             _state.update {
                 it.copy(
                     days = days,
@@ -182,19 +199,14 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun addTask(task: Task) {
+    fun setTaskEditState(state: TaskScreenStates) {
         viewModelScope.launch {
-            taskRepositoryInteractor.addTask(task = task)
-            val days = updateWeekDaysUseCase(
-                daysList = _state.value.days,
-                taskList = taskRepositoryInteractor.getData())
             _state.update {
                 it.copy(
-                    days = days,
+                    taskEditState = state
                 )
             }
         }
-
     }
 
 
@@ -205,7 +217,8 @@ data class MainScreenState(
     val weekDates: WeekDates = WeekDates(LocalDate.now(), LocalDate.now()),
     val isCalendarVisible: Boolean = false,
     val searchDate: LocalDate? = null,
-    val currentTask: Task? = null
+    val currentTask: Task? = null,
+    val taskEditState: TaskScreenStates? = null
 
 )
 

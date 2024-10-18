@@ -19,7 +19,7 @@ val taskData : List<Task> = mutableListOf(
         description = "",
         deadline = LocalDate.of(2024, 10, 18),
         priority = Priority.HIGH,
-        notification = true,
+        notification = false,
         notificationTime = null,
         isDone = false
     ),

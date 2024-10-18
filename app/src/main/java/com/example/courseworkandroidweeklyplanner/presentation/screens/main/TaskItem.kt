@@ -60,12 +60,14 @@ fun TaskItem(
     Spacer(modifier = Modifier.width(16.dp))
     Text(
         text = task.name,
+        modifier = Modifier
+            .weight(5f)
     )
     if (task.notification) {
-        Spacer(modifier = Modifier.weight(1f))
         Icon(
             imageVector = Icons.Default.Notifications,
-            contentDescription = stringResource(R.string.description_notification)
+            contentDescription = stringResource(R.string.description_notification),
+            modifier = Modifier.weight(1f)
         )
     }
 }

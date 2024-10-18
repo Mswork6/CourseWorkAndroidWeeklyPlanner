@@ -1,11 +1,11 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,14 +21,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
-import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = viewModel(),
+    onTaskAddScreen: (taskId: String?, state: String? ) -> Unit,
+    onTaskEditScreen: (taskId: String?, state: String?) -> Unit,
+    onTaskOpenScreen: (taskId: String?, state: String?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.state.collectAsState()
@@ -47,7 +50,12 @@ fun MainScreen(
         },
         floatingActionButton = {
             MainScreenFloatingActionButton(
-                onClick = { }
+                onClick = {
+                    viewModel.setTaskEditState(state = TaskScreenStates.ADD)
+                    Log.d("chelyabinsk", "Main Screen state: ${state.taskEditState?.name}")
+                    //state.taskEditState?.name
+                    onTaskAddScreen( "32sdg3fdsg31", TaskScreenStates.ADD.name )
+                }
             )
         }
     ) { padding: PaddingValues ->
@@ -105,8 +113,16 @@ fun MainScreen(
             task = task,
             onDismissRequest = { viewModel.dismissDialogWindow() },
             onCompleteTask = { viewModel.completeTask(it) },
-            onOpenTask = { },
-            onEditTask = { },
+            onOpenTask = {
+                viewModel.setTaskEditState(TaskScreenStates.OPEN)
+                Log.d("chelyabinsk", "Main Screen state: ${state.taskEditState?.name}")
+                Log.d("chelyabinsk", "Main Screen id: ${task.id}")
+                onTaskOpenScreen(task.id.toString(), TaskScreenStates.OPEN.name)
+            },
+            onEditTask = {
+                viewModel.setTaskEditState(TaskScreenStates.EDIT)
+                onTaskEditScreen(task.id.toString(), TaskScreenStates.EDIT.name)
+            },
             onDeleteTask = { viewModel.deleteTask(it) }
         )
     }
@@ -118,11 +134,11 @@ fun MainScreen(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun MainScreenPreview() {
-    CourseWorkAndroidWeeklyPlannerTheme {
-        MainScreen(
-            modifier = Modifier.fillMaxSize()
-        )
-    }
+//    CourseWorkAndroidWeeklyPlannerTheme {
+//        MainScreen(
+//            modifier = Modifier.fillMaxSize()
+//        )
+//    }
 }
 
 

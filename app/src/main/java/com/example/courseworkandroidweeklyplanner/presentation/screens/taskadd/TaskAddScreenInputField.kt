@@ -38,6 +38,7 @@ internal fun TaskAddScreenInputField(
     nameText: String,
     taskNameError: String?,
     descriptionText: String?,
+    editState: Boolean,
     onTaskTitleValueChange: (String) -> Unit,
     onTaskDescriptionValueChange: (String) -> Unit,
 
@@ -49,6 +50,7 @@ internal fun TaskAddScreenInputField(
 ) {
     BasicTextField(
         value = nameText,
+        readOnly = !editState,
         onValueChange = onTaskTitleValueChange,
         modifier = Modifier
             .fillMaxWidth()
@@ -86,6 +88,7 @@ internal fun TaskAddScreenInputField(
 
     BasicTextField(
         value = descriptionText ?: "",
+        readOnly = !editState,
         onValueChange = onTaskDescriptionValueChange,
         modifier = Modifier
             .fillMaxWidth()
@@ -126,6 +129,7 @@ private fun TaskAddScreenInputFieldPreview() {
             nameText = "",
             taskNameError = null,
             descriptionText = "",
+            editState = false,
             onTaskTitleValueChange = { state = state.copy(taskTitle = it) },
             onTaskDescriptionValueChange = { state = state.copy(taskDescription = it) },
             modifier = Modifier.fillMaxWidth()

@@ -12,6 +12,7 @@ import javax.inject.Singleton
 class DataModule {
 
     @Provides
+    @Singleton
     fun providesTaskRepositoryInteractor() = TaskRepositoryInteractor()
 
 }

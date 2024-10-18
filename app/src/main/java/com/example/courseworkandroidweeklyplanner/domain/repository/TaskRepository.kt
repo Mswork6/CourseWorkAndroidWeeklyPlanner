@@ -13,4 +13,6 @@ interface TaskRepository {
 
     fun deleteTask(taskId: UUID)
 
+    fun getTask(taskId: UUID): Task
+
 }
