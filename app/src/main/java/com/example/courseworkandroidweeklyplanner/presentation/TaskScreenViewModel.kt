@@ -71,7 +71,6 @@ class TaskScreenViewModel @Inject constructor(
                     isDone = false
                 )
                 taskRepositoryInteractor.addTask(task = newTask)
-                Log.d("lipec", taskRepositoryInteractor.tasks.toList().toString())
             }
             return true
         } else return false

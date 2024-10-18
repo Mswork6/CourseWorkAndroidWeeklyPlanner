@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -22,14 +23,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
+import com.example.courseworkandroidweeklyplanner.presentation.MainScreenState
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = viewModel(),
-    onTaskAddScreen: (taskId: String?, state: String? ) -> Unit,
+    state: MainScreenState,
+    onTaskAddScreen: (taskId: String?, state: String?) -> Unit,
     onTaskEditScreen: (taskId: String?, state: String?) -> Unit,
     onTaskOpenScreen: (taskId: String?, state: String?) -> Unit,
     modifier: Modifier = Modifier

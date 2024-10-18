@@ -12,8 +12,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,8 +19,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
+import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenState
 import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
+import com.example.courseworkandroidweeklyplanner.presentation.util.PastOrPresentSelectableDates
 import com.example.courseworkandroidweeklyplanner.presentation.util.convertToLocalDate
 import java.time.LocalTime
 
@@ -30,6 +30,7 @@ import java.time.LocalTime
 @Composable
 fun TaskAddScreen(
     viewModel: TaskScreenViewModel = viewModel(),
+    state: TaskScreenState,
     taskId: String?,
     screenState: TaskScreenStates?,
     navigateBackAction: () -> Unit,
@@ -38,7 +39,6 @@ fun TaskAddScreen(
 ) {
     Log.d("chelyabinsk", "In Add Screen")
 
-    val state by viewModel.state.collectAsState()
     viewModel.setTaskScreenState(screenState)
     viewModel.checkScreenState(taskId = taskId)
 
@@ -46,7 +46,21 @@ fun TaskAddScreen(
         TaskAddScreenTopBar(
             state = state.screenState,
             navigateBackAction = navigateBackAction,
-            taskAddAction = taskAddAction
+            taskAddAction = {
+                when (state.screenState) {
+                    TaskScreenStates.ADD -> {
+                        viewModel.addTask()
+                        taskAddAction()
+                    }
+                    TaskScreenStates.EDIT -> {
+                        viewModel.editTask()
+                        taskAddAction()
+                    }
+                    TaskScreenStates.OPEN -> {}
+                    null -> {}
+                }
+            }
+
         )
     }) { padding: PaddingValues ->
 
@@ -96,12 +110,14 @@ fun TaskAddScreen(
         }
 
         if (state.isTaskCalendarVisible) {
-            DatePickerModal(onDateSelected = { dateMillis ->
-                dateMillis?.let {
-                    val deadLine = convertToLocalDate(dateMillis)
-                    viewModel.setTaskDeadLine(deadLine)
-                }
-            }, onDismiss = { viewModel.closeTaskCalendar() })
+            DatePickerModal(
+                selectableDates = PastOrPresentSelectableDates,
+                onDateSelected = { dateMillis ->
+                    dateMillis?.let {
+                        val deadLine = convertToLocalDate(dateMillis)
+                        viewModel.setTaskDeadLine(deadLine)
+                    }
+                }, onDismiss = { viewModel.closeTaskCalendar() })
         }
 
         if (state.isTaskNotificationWindowVisible) {
