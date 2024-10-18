@@ -2,6 +2,8 @@ package com.example.courseworkandroidweeklyplanner.presentation.util
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SelectableDates
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import java.time.Instant
 import java.time.LocalDate
@@ -39,4 +41,12 @@ object PastOrPresentSelectableDates: SelectableDates {
     override fun isSelectableYear(year: Int): Boolean {
         return year >= LocalDate.now().year
     }
+}
+
+val viewModelStoreOwnerTaskScreen = object : ViewModelStoreOwner {
+    override val viewModelStore: ViewModelStore = ViewModelStore()
+}
+
+val viewModelStoreOwnerMainScreen = object : ViewModelStoreOwner {
+    override val viewModelStore: ViewModelStore = ViewModelStore()
 }

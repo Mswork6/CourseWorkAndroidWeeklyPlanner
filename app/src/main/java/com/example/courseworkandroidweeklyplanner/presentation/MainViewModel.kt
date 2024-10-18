@@ -40,7 +40,7 @@ class MainViewModel @Inject constructor(
                 taskRepositoryInteractor.init()
                 val weekDates = getWeekUseCase(LocalDate.now())
                 _state.update {
-                    MainScreenState(
+                    it.copy(
                         days = getWeekDaysUseCase(weekDates, it.tasks),
                         weekDates = weekDates
                     )

@@ -5,17 +5,17 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
-import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreen
 import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenRoute
-import com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd.TaskAddScreen
 import com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd.TaskAddScreenRoute
+import com.example.courseworkandroidweeklyplanner.presentation.util.viewModelStoreOwnerMainScreen
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 NavHost(navController, startDestination = "main_screen") {
-
                     composable("main_screen") {
                         MainScreenRoute(
                             onTaskAddScreen = { taskId: String?, state: String? ->
@@ -39,9 +38,11 @@ class MainActivity : ComponentActivity() {
                                 navController.navigate("task_add_screen/${taskId}/${state}")
                             },
                             onTaskEditScreen = { taskId: String?, state: String? ->
-                                navController.navigate("task_add_screen/${taskId}/${state}") },
+                                navController.navigate("task_add_screen/${taskId}/${state}")
+                            },
                             onTaskOpenScreen = { taskId: String?, state: String? ->
-                                navController.navigate("task_add_screen/${taskId}/${state}") }
+                                navController.navigate("task_add_screen/${taskId}/${state}")
+                            }
                         )
 
                     }

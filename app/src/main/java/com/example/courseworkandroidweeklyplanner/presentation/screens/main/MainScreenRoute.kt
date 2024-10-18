@@ -3,11 +3,13 @@ package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.hilt.navigation.compose.hiltViewModel
 
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
+import com.example.courseworkandroidweeklyplanner.presentation.util.viewModelStoreOwnerMainScreen
 
 @Composable
 fun MainScreenRoute(
@@ -15,14 +17,12 @@ fun MainScreenRoute(
     onTaskEditScreen: (taskId: String?, state: String?) -> Unit,
     onTaskOpenScreen: (taskId: String?, state: String?) -> Unit,
 ) {
-//    val viewModelStoreOwnerMainScreen = object : ViewModelStoreOwner {
-//        override val viewModelStore: ViewModelStore = ViewModelStore()
-//    }
-//    val mainViewModel = viewModel<MainViewModel>(
+
+//    val mainViewModel = hiltViewModel<MainViewModel>(
 //    viewModelStoreOwner = viewModelStoreOwnerMainScreen,
 //        key = "MainVM"
 //    )
-    val mainViewModel: MainViewModel = viewModel()
+    val mainViewModel: MainViewModel = hiltViewModel()
     val state = mainViewModel.state.collectAsState()
 
     MainScreen(
