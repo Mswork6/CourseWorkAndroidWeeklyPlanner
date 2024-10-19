@@ -6,9 +6,9 @@ import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
 
 @Composable
 fun MainScreenRoute(
-    onTaskAddScreen: (taskId: String?, state: String? ) -> Unit,
-    onTaskEditScreen: (taskId: String?, state: String?) -> Unit,
-    onTaskOpenScreen: (taskId: String?, state: String?) -> Unit,
+    onTaskAddScreen: (taskId: String?, state: String ) -> Unit,
+    onTaskEditScreen: (taskId: String, state: String) -> Unit,
+    onTaskOpenScreen: (taskId: String, state: String) -> Unit,
 ) {
 
 //    val viewModelStoreOwnerMainScreen = remember {

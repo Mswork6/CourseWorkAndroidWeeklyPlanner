@@ -9,7 +9,7 @@ import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenViewMod
 
 fun TaskAddScreenRoute(
     taskId: String?,
-    screenState: TaskScreenStates?,
+    screenState: TaskScreenStates,
     navigateBackAction: () -> Unit,
     taskAddAction: () -> Unit,
 ) {

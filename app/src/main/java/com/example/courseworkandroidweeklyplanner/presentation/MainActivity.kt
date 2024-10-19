@@ -1,7 +1,6 @@
 package com.example.courseworkandroidweeklyplanner.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -29,13 +28,11 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(navController, startDestination = "main_screen") {
                     composable("main_screen") {
-                        MainScreenRoute(onTaskAddScreen = { taskId: String?, state: String? ->
-                            Log.d("chelyabinsk", "taskId: $taskId")
-                            Log.d("chelyabinsk", "state: $state")
+                        MainScreenRoute(onTaskAddScreen = { taskId: String?, state: String ->
                             navController.navigate("task_add_screen/${taskId}/${state}")
-                        }, onTaskEditScreen = { taskId: String?, state: String? ->
+                        }, onTaskEditScreen = { taskId: String, state: String ->
                             navController.navigate("task_add_screen/${taskId}/${state}")
-                        }, onTaskOpenScreen = { taskId: String?, state: String? ->
+                        }, onTaskOpenScreen = { taskId: String, state: String ->
                             navController.navigate("task_add_screen/${taskId}/${state}")
                         })
                     }
@@ -43,21 +40,29 @@ class MainActivity : ComponentActivity() {
                         arguments = listOf(navArgument("taskId") {
                             nullable = true
                             type = NavType.StringType
-                        }, navArgument("state") { type = NavType.StringType })) { backStackEntry ->
+                        }, navArgument("state") {
+                            nullable = false
+                            type = NavType.StringType
+                        })
+                    ) { backStackEntry ->
 
                         val taskId = backStackEntry.arguments?.getString("taskId")
                         val state = backStackEntry.arguments?.getString("state")
                         val stateScreen = state?.let { TaskScreenStates.valueOf(it) }
 
-                        TaskAddScreenRoute(
-                            taskId = taskId,
-                            screenState = stateScreen,
-                            navigateBackAction = {
-                                if (backStackEntry.lifecycleIsResumed) navController.popBackStack()
-                            },
-                            taskAddAction = {
-                                if (backStackEntry.lifecycleIsResumed) navController.popBackStack() }
-                        )
+                        stateScreen?.let {
+                            TaskAddScreenRoute(
+                                taskId = taskId,
+                                screenState = it,
+                                navigateBackAction = {
+                                    if (backStackEntry.lifecycleIsResumed) navController.popBackStack()
+                                },
+                                taskAddAction = {
+                                    if (backStackEntry.lifecycleIsResumed) navController.popBackStack()
+                                }
+                            )
+                        }
+
                     }
                 }
             }

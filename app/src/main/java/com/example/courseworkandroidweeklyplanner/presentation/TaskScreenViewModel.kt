@@ -161,7 +161,7 @@ class TaskScreenViewModel @Inject constructor(
                 TaskScreenStates.OPEN -> taskId?.let { updateData(taskId = it, editState = false) }
                 TaskScreenStates.EDIT -> taskId?.let { updateData(taskId = it, editState = true) }
                 TaskScreenStates.ADD -> clearData()
-                null -> {}
+                null -> clearData()
             }
         }
 

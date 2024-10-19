@@ -28,9 +28,9 @@ import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.Da
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = viewModel(),
-    onTaskAddScreen: (taskId: String?, state: String?) -> Unit,
-    onTaskEditScreen: (taskId: String?, state: String?) -> Unit,
-    onTaskOpenScreen: (taskId: String?, state: String?) -> Unit,
+    onTaskAddScreen: (taskId: String?, state: String) -> Unit,
+    onTaskEditScreen: (taskId: String, state: String) -> Unit,
+    onTaskOpenScreen: (taskId: String, state: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.state.collectAsState()

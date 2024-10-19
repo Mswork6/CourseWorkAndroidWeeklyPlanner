@@ -34,7 +34,7 @@ import java.time.LocalTime
 fun TaskAddScreen(
     viewModel: TaskScreenViewModel = viewModel(),
     taskId: String?,
-    screenState: TaskScreenStates?,
+    screenState: TaskScreenStates,
     navigateBackAction: () -> Unit,
     taskAddAction: () -> Unit,
     modifier: Modifier = Modifier
