@@ -1,14 +1,11 @@
 package com.example.courseworkandroidweeklyplanner.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepositoryInteractor
 import com.example.courseworkandroidweeklyplanner.domain.models.Priority
-import com.example.courseworkandroidweeklyplanner.domain.models.StateInterface
 import com.example.courseworkandroidweeklyplanner.domain.models.Task
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
-import com.example.courseworkandroidweeklyplanner.domain.usecases.UpdateWeekDaysUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -22,14 +19,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskScreenViewModel @Inject constructor(
-    private val updateWeekDaysUseCase: UpdateWeekDaysUseCase,
     private val taskRepositoryInteractor: TaskRepositoryInteractor
 ) : ViewModel() {
     private val _state = MutableStateFlow(TaskScreenState())
     val state: StateFlow<TaskScreenState> = _state.asStateFlow()
 
-
-    fun validateTask(): Boolean {
+    private fun validateTask(): Boolean {
         val currentName = _state.value.taskName.trim()
         when {
             currentName.isEmpty() -> {
@@ -141,12 +136,6 @@ class TaskScreenViewModel @Inject constructor(
         }
     }
 
-    fun setTaskPriority(priority: Priority) {
-        viewModelScope.launch {
-            _state.update { it.copy(taskPriority = priority) }
-        }
-    }
-
     fun setTaskNotification(taskNotification: Boolean) {
         viewModelScope.launch {
             _state.update { it.copy(taskNotification = taskNotification) }
@@ -227,7 +216,7 @@ class TaskScreenViewModel @Inject constructor(
         }
     }
 
-    // Метод для закрытия экрана с радиокнопками
+
     fun hidePriorityScreen() {
         _state.update {
             it.copy(isPriorityScreenVisible = false)
@@ -238,7 +227,6 @@ class TaskScreenViewModel @Inject constructor(
         _state.update {
             it.copy(taskPriority = priority)
         }
-        Log.d("TaskViewModel", "Selected priority updated to: ${priority.description}")
     }
 
 }
@@ -258,5 +246,5 @@ data class TaskScreenState(
     val taskNameError: String? = null,
     val screenState: TaskScreenStates? = null,
     val editState: Boolean = true,
-    val isPriorityScreenVisible: Boolean = false, // Новое поле
+    val isPriorityScreenVisible: Boolean = false
 )

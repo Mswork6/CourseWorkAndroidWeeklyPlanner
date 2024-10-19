@@ -16,9 +16,7 @@ class TaskRepositoryInteractor : TaskRepository {
 
 
     fun init() {
-        _tasks.update {
-            taskData
-        }
+        _tasks.update { taskData }
     }
 
     override fun getData(): List<Task> = _tasks.value

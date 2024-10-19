@@ -26,4 +26,9 @@
     <string name="action_delete_task">Удалить задачу</string>
     <string name="description_choose_task_priority">Выберите приоритет задачи</string>
     <string name="description_choose_sorting_type">Выберите режим сортировки</string>
+    <string name="description_high">Высокий</string>
+    <string name="description_standard">Стандартный</string>
+    <string name="description_low">Низкий</string>
+    <string name="error_empty_title">Заголовок не может быть пустым</string>
+    <string name="error_long_tittle">Заголовок не может превышать 100 символов</string>
 </resources>

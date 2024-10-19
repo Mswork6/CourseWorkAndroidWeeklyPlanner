@@ -1,7 +1,5 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
-import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,7 +17,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
@@ -31,7 +28,6 @@ import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.Da
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = viewModel(),
-    //state: MainScreenState,
     onTaskAddScreen: (taskId: String?, state: String?) -> Unit,
     onTaskEditScreen: (taskId: String?, state: String?) -> Unit,
     onTaskOpenScreen: (taskId: String?, state: String?) -> Unit,
@@ -53,11 +49,7 @@ fun MainScreen(
         },
         floatingActionButton = {
             MainScreenFloatingActionButton(
-                onClick = {
-                    viewModel.setTaskEditState(state = TaskScreenStates.ADD)
-                    Log.d("chelyabinsk", "Main Screen state: ${state.taskEditState?.name}")
-                    onTaskAddScreen("e32husdia3123", TaskScreenStates.ADD.name)
-                }
+                onClick = { onTaskAddScreen(null, TaskScreenStates.ADD.name) }
             )
         }
     ) { padding: PaddingValues ->
@@ -115,17 +107,8 @@ fun MainScreen(
             task = task,
             onDismissRequest = { viewModel.dismissDialogWindow() },
             onCompleteTask = { viewModel.completeTask(it) },
-            onOpenTask = {
-                viewModel.setTaskEditState(TaskScreenStates.OPEN)
-                Log.d("chelyabinsk", "Main Screen state: ${state.taskEditState?.name}")
-                Log.d("chelyabinsk", "Main Screen id: ${task.id}")
-                onTaskOpenScreen(task.id.toString(), TaskScreenStates.OPEN.name)
-            },
-            onEditTask = {
-                viewModel.setTaskEditState(TaskScreenStates.EDIT)
-                Log.d("chelyabinsk", "Main Screen state: ${state.taskEditState?.name}")
-                onTaskEditScreen(task.id.toString(), TaskScreenStates.EDIT.name)
-            },
+            onOpenTask = { onTaskOpenScreen(task.id.toString(), TaskScreenStates.OPEN.name) },
+            onEditTask = { onTaskEditScreen(task.id.toString(), TaskScreenStates.EDIT.name) },
             onDeleteTask = { viewModel.deleteTask(it) }
         )
     }
@@ -137,26 +120,10 @@ fun MainScreen(
                 viewModel.setSelectedOption(option)
                 viewModel.updateData()
             },
-            onDismissRequest = {
-                viewModel.hideRadioScreen()
-                Log.d("piter", state.selectedSort.description)
-            },
+            onDismissRequest = { viewModel.hideRadioScreen() },
             modifier = Modifier.fillMaxWidth(0.9f)
         )
     }
-
-
-}
-
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun MainScreenPreview() {
-//    CourseWorkAndroidWeeklyPlannerTheme {
-//        MainScreen(
-//            modifier = Modifier.fillMaxSize()
-//        )
-//    }
 }
 
 

@@ -5,8 +5,6 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -15,7 +13,7 @@ import androidx.navigation.navArgument
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenRoute
 import com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd.TaskAddScreenRoute
-import com.example.courseworkandroidweeklyplanner.presentation.util.viewModelStoreOwnerMainScreen
+import com.example.courseworkandroidweeklyplanner.presentation.util.lifecycleIsResumed
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,26 +29,21 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(navController, startDestination = "main_screen") {
                     composable("main_screen") {
-                        MainScreenRoute(
-                            onTaskAddScreen = { taskId: String?, state: String? ->
-                                Log.d("chelyabinsk", "taskId: $taskId")
-                                Log.d("chelyabinsk", "state: $state")
-                                navController.navigate("task_add_screen/${taskId}/${state}")
-                            },
-                            onTaskEditScreen = { taskId: String?, state: String? ->
-                                navController.navigate("task_add_screen/${taskId}/${state}")
-                            },
-                            onTaskOpenScreen = { taskId: String?, state: String? ->
-                                navController.navigate("task_add_screen/${taskId}/${state}")
-                            }
-                        )
-
+                        MainScreenRoute(onTaskAddScreen = { taskId: String?, state: String? ->
+                            Log.d("chelyabinsk", "taskId: $taskId")
+                            Log.d("chelyabinsk", "state: $state")
+                            navController.navigate("task_add_screen/${taskId}/${state}")
+                        }, onTaskEditScreen = { taskId: String?, state: String? ->
+                            navController.navigate("task_add_screen/${taskId}/${state}")
+                        }, onTaskOpenScreen = { taskId: String?, state: String? ->
+                            navController.navigate("task_add_screen/${taskId}/${state}")
+                        })
                     }
                     composable(route = "task_add_screen/{taskId}/{state}",
-                        arguments = listOf(
-                            navArgument("taskId") { type = NavType.StringType },
-                            navArgument("state") { type = NavType.StringType }
-                        )) { backStackEntry ->
+                        arguments = listOf(navArgument("taskId") {
+                            nullable = true
+                            type = NavType.StringType
+                        }, navArgument("state") { type = NavType.StringType })) { backStackEntry ->
 
                         val taskId = backStackEntry.arguments?.getString("taskId")
                         val state = backStackEntry.arguments?.getString("state")
@@ -59,8 +52,11 @@ class MainActivity : ComponentActivity() {
                         TaskAddScreenRoute(
                             taskId = taskId,
                             screenState = stateScreen,
-                            navigateBackAction = { navController.popBackStack() },
-                            taskAddAction = { navController.popBackStack() }
+                            navigateBackAction = {
+                                if (backStackEntry.lifecycleIsResumed) navController.popBackStack()
+                            },
+                            taskAddAction = {
+                                if (backStackEntry.lifecycleIsResumed) navController.popBackStack() }
                         )
                     }
                 }

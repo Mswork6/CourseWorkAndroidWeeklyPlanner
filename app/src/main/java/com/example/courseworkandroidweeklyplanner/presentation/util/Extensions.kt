@@ -2,12 +2,11 @@ package com.example.courseworkandroidweeklyplanner.presentation.util
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SelectableDates
-import androidx.lifecycle.ViewModelStore
-import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavBackStackEntry
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import java.time.Instant
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -43,10 +42,5 @@ object PastOrPresentSelectableDates: SelectableDates {
     }
 }
 
-val viewModelStoreOwnerTaskScreen = object : ViewModelStoreOwner {
-    override val viewModelStore: ViewModelStore = ViewModelStore()
-}
-
-val viewModelStoreOwnerMainScreen = object : ViewModelStoreOwner {
-    override val viewModelStore: ViewModelStore = ViewModelStore()
-}
+val NavBackStackEntry.lifecycleIsResumed: Boolean
+    get() = this.lifecycle.currentState == Lifecycle.State.RESUMED

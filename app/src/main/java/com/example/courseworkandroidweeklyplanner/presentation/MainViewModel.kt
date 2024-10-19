@@ -1,6 +1,5 @@
 package com.example.courseworkandroidweeklyplanner.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepositoryInteractor
@@ -8,7 +7,6 @@ import com.example.courseworkandroidweeklyplanner.domain.interactors.CalendarInt
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
 import com.example.courseworkandroidweeklyplanner.domain.models.SortStateEnum
 import com.example.courseworkandroidweeklyplanner.domain.models.Task
-import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekDaysUseCase
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekUseCase
@@ -216,15 +214,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setTaskEditState(state: TaskScreenStates) {
-        viewModelScope.launch {
-            _state.update {
-                it.copy(
-                    taskEditState = state
-                )
-            }
-        }
-    }
 
     fun showRadioScreen() {
         _state.update {
@@ -232,7 +221,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    // Метод для закрытия экрана с радиокнопками
     fun hideRadioScreen() {
         _state.update {
             it.copy(isRadioScreenVisible = false)
@@ -243,7 +231,6 @@ class MainViewModel @Inject constructor(
         _state.update {
             it.copy(selectedSort = option)
         }
-        Log.d("ViewModel", "Selected option updated to: ${option.description}")
     }
 
 
@@ -256,16 +243,7 @@ data class MainScreenState(
     val isCalendarVisible: Boolean = false,
     val searchDate: LocalDate? = null,
     val currentTask: Task? = null,
-    val taskEditState: TaskScreenStates? = null,
-    val isRadioScreenVisible: Boolean = false, // Новое поле
-    val selectedSort: SortStateEnum = SortStateEnum.STANDARD // Новое поле
+    val isRadioScreenVisible: Boolean = false,
+    val selectedSort: SortStateEnum = SortStateEnum.STANDARD
 
 )
-
-sealed interface State {
-    data object Loading : State
-    data class Base(
-        val days: List<Day>,
-        val weekDates: WeekDates
-    )
-}

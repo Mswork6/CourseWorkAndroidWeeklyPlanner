@@ -21,28 +21,24 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
-import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenState
 import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.main.PriorityDialogWindow
-import com.example.courseworkandroidweeklyplanner.presentation.screens.main.SortDialogWindow
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
 import com.example.courseworkandroidweeklyplanner.presentation.util.PastOrPresentSelectableDates
 import com.example.courseworkandroidweeklyplanner.presentation.util.convertToLocalDate
+import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskAddScreen(
     viewModel: TaskScreenViewModel = viewModel(),
-    //state: TaskScreenState,
     taskId: String?,
     screenState: TaskScreenStates?,
     navigateBackAction: () -> Unit,
     taskAddAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    //Log.d("chelyabinsk", "In Add Screen")
-
     val state by viewModel.state.collectAsState()
     viewModel.setTaskScreenState(screenState)
     viewModel.checkScreenState(taskId = taskId)
@@ -55,12 +51,14 @@ fun TaskAddScreen(
                 when (state.screenState) {
                     TaskScreenStates.ADD -> {
                         if (viewModel.addTask())
-                        taskAddAction()
+                            taskAddAction()
                     }
+
                     TaskScreenStates.EDIT -> {
                         if (viewModel.editTask())
-                        taskAddAction()
+                            taskAddAction()
                     }
+
                     TaskScreenStates.OPEN -> {}
                     null -> {}
                 }
@@ -88,16 +86,17 @@ fun TaskAddScreen(
                 onTaskDescriptionValueChange = { viewModel.setTaskDescription(it) },
                 modifier = Modifier.fillMaxWidth()
             )
+            TaskAddScreenPriorityInputField(
+                editState = state.editState,
+                priority = state.taskPriority,
+                onClick = { viewModel.showPriorityScreen() }, modifier = Modifier.fillMaxWidth()
+            )
+            TaskAddScreenDivider()
             TaskAddScreenDateInputField(
                 selectedDate = state.taskDeadLine,
                 editState = state.editState,
                 onClick = { viewModel.openTaskCalendar() },
                 modifier = Modifier.fillMaxWidth()
-            )
-            TaskAddScreenDivider()
-            TaskAddScreenPriorityInputField(
-                editState = state.editState,
-                onClick = { viewModel.showPriorityScreen() }, modifier = Modifier.fillMaxWidth()
             )
             TaskAddScreenDivider()
             TaskAddScreenNotificationInputField(
@@ -142,10 +141,7 @@ fun TaskAddScreen(
                 onOptionSelected = { option ->
                     viewModel.setSelectedOption(option)
                 },
-                onDismissRequest = {
-                    viewModel.hidePriorityScreen()
-                    Log.d("piter", "priority ->  $state.taskPriority.description" )
-                },
+                onDismissRequest = { viewModel.hidePriorityScreen() },
                 modifier = Modifier.fillMaxWidth(0.9f)
             )
         }
@@ -165,9 +161,12 @@ private fun TaskAddScreenDivider(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun TaskAddScreenPreview() {
-//    CourseWorkAndroidWeeklyPlannerTheme {
-//        TaskAddScreen(
-//            modifier = Modifier.fillMaxSize()
-//        )
-//    }
+    CourseWorkAndroidWeeklyPlannerTheme {
+        TaskAddScreen(
+        taskId = null,
+        screenState =  TaskScreenStates.ADD,
+        navigateBackAction = {},
+        taskAddAction = { },
+        )
+    }
 }
