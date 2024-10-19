@@ -23,6 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenState
 import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenViewModel
+import com.example.courseworkandroidweeklyplanner.presentation.screens.main.SortDialogWindow
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
 import com.example.courseworkandroidweeklyplanner.presentation.util.PastOrPresentSelectableDates
 import com.example.courseworkandroidweeklyplanner.presentation.util.convertToLocalDate
@@ -95,7 +96,7 @@ fun TaskAddScreen(
             TaskAddScreenDivider()
             TaskAddScreenPriorityInputField(
                 editState = state.editState,
-                onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()
+                onClick = { viewModel.showPriorityScreen() }, modifier = Modifier.fillMaxWidth()
             )
             TaskAddScreenDivider()
             TaskAddScreenNotificationInputField(
@@ -132,6 +133,20 @@ fun TaskAddScreen(
                     viewModel.setTaskNotificationTime(notificationTime)
                 })
 
+        }
+
+        if (state.isPriorityScreenVisible) {
+            SortDialogWindow(
+                selectedOption = state.taskPriority,
+                onOptionSelected = { option ->
+                    viewModel.setSelectedOption(option)
+                },
+                onDismissRequest = {
+                    viewModel.hidePriorityScreen()
+                    Log.d("piter", "priority ->  $state.taskPriority.description" )
+                },
+                modifier = Modifier.fillMaxWidth(0.9f)
+            )
         }
     }
 }

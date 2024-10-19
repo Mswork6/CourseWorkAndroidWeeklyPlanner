@@ -23,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
-import com.example.courseworkandroidweeklyplanner.presentation.MainScreenState
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
 
@@ -57,7 +56,7 @@ fun MainScreen(
                 onClick = {
                     viewModel.setTaskEditState(state = TaskScreenStates.ADD)
                     Log.d("chelyabinsk", "Main Screen state: ${state.taskEditState?.name}")
-                    onTaskAddScreen( "e32husdia3123", TaskScreenStates.ADD.name )
+                    onTaskAddScreen("e32husdia3123", TaskScreenStates.ADD.name)
                 }
             )
         }
@@ -74,7 +73,7 @@ fun MainScreen(
         ) {
             MainScreenSearchFilterButtons(
                 searchClickAction = { viewModel.openCalendar() },
-                filterClickAction = {},
+                filterClickAction = { viewModel.showRadioScreen() },
                 modifier = Modifier.fillMaxWidth()
             )
             LazyColumn {
@@ -124,9 +123,24 @@ fun MainScreen(
             },
             onEditTask = {
                 viewModel.setTaskEditState(TaskScreenStates.EDIT)
+                Log.d("chelyabinsk", "Main Screen state: ${state.taskEditState?.name}")
                 onTaskEditScreen(task.id.toString(), TaskScreenStates.EDIT.name)
             },
             onDeleteTask = { viewModel.deleteTask(it) }
+        )
+    }
+
+    if (state.isRadioScreenVisible) {
+        SortDialogWindow(
+            selectedOption = state.selectedSort,
+            onOptionSelected = { option ->
+                viewModel.setSelectedOption(option)
+            },
+            onDismissRequest = {
+                viewModel.hideRadioScreen()
+                Log.d("piter", state.selectedSort.description)
+            },
+            modifier = Modifier.fillMaxWidth(0.9f)
         )
     }
 

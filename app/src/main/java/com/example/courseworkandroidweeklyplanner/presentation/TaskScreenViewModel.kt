@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepositoryInteractor
 import com.example.courseworkandroidweeklyplanner.domain.models.Priority
+import com.example.courseworkandroidweeklyplanner.domain.models.StateInterface
 import com.example.courseworkandroidweeklyplanner.domain.models.Task
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.domain.usecases.UpdateWeekDaysUseCase
@@ -220,6 +221,26 @@ class TaskScreenViewModel @Inject constructor(
 
     }
 
+    fun showPriorityScreen() {
+        _state.update {
+            it.copy(isPriorityScreenVisible = true)
+        }
+    }
+
+    // Метод для закрытия экрана с радиокнопками
+    fun hidePriorityScreen() {
+        _state.update {
+            it.copy(isPriorityScreenVisible = false)
+        }
+    }
+
+    fun setSelectedOption(priority: StateInterface) {
+        _state.update {
+            it.copy(taskPriority = priority)
+        }
+        Log.d("TaskViewModel", "Selected priority updated to: ${priority.description}")
+    }
+
 }
 
 
@@ -230,11 +251,12 @@ data class TaskScreenState(
     val isTaskCalendarVisible: Boolean = false,
     val taskDeadLine: LocalDate = LocalDate.now(),
     val isPriorityWindowVisible: Boolean = false,
-    val taskPriority: Priority = Priority.BASIC,
+    val taskPriority: StateInterface = Priority.BASIC,
     val isTaskNotificationWindowVisible: Boolean = false,
     val taskNotification: Boolean = false,
     val taskNotificationTime: LocalTime? = null,
     val taskNameError: String? = null,
     val screenState: TaskScreenStates? = null,
     val editState: Boolean = true,
+    val isPriorityScreenVisible: Boolean = false, // Новое поле
 )

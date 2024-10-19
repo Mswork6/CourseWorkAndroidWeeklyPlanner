@@ -11,7 +11,7 @@ data class Task(
     val name: String,
     val description: String?,
     val deadline: LocalDate,
-    val priority: Priority,
+    val priority: StateInterface,
     val notification: Boolean,
     val notificationTime: LocalDateTime?,
     val isDone: Boolean

@@ -1,10 +1,13 @@
 package com.example.courseworkandroidweeklyplanner.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepositoryInteractor
 import com.example.courseworkandroidweeklyplanner.domain.interactors.CalendarInteractor
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
+import com.example.courseworkandroidweeklyplanner.domain.models.SortStateEnum
+import com.example.courseworkandroidweeklyplanner.domain.models.StateInterface
 import com.example.courseworkandroidweeklyplanner.domain.models.Task
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
@@ -221,6 +224,26 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun showRadioScreen() {
+        _state.update {
+            it.copy(isRadioScreenVisible = true)
+        }
+    }
+
+    // Метод для закрытия экрана с радиокнопками
+    fun hideRadioScreen() {
+        _state.update {
+            it.copy(isRadioScreenVisible = false)
+        }
+    }
+
+    fun setSelectedOption(option: StateInterface) {
+        _state.update {
+            it.copy(selectedSort = option)
+        }
+        Log.d("ViewModel", "Selected option updated to: ${option.description}")
+    }
+
 
 }
 
@@ -231,7 +254,9 @@ data class MainScreenState(
     val isCalendarVisible: Boolean = false,
     val searchDate: LocalDate? = null,
     val currentTask: Task? = null,
-    val taskEditState: TaskScreenStates? = null
+    val taskEditState: TaskScreenStates? = null,
+    val isRadioScreenVisible: Boolean = false, // Новое поле
+    val selectedSort: StateInterface = SortStateEnum.STANDART // Новое поле
 
 )
 

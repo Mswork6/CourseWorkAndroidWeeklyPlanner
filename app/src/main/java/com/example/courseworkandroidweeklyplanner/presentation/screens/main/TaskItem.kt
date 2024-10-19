@@ -53,6 +53,7 @@ fun TaskItem(
                 Priority.LOW -> colorResource(R.color.gray)
                 Priority.BASIC -> colorResource(R.color.black)
                 Priority.HIGH -> colorResource(R.color.red)
+                else -> colorResource(R.color.purple_700)
             }
         },
 
