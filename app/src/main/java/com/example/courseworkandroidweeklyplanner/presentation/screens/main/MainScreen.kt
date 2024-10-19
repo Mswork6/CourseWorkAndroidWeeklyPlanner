@@ -135,6 +135,7 @@ fun MainScreen(
             selectedOption = state.selectedSort,
             onOptionSelected = { option ->
                 viewModel.setSelectedOption(option)
+                viewModel.updateData()
             },
             onDismissRequest = {
                 viewModel.hideRadioScreen()

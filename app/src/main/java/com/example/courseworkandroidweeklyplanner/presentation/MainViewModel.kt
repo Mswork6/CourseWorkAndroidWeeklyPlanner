@@ -42,7 +42,8 @@ class MainViewModel @Inject constructor(
                 val weekDates = getWeekUseCase(LocalDate.now())
                 _state.update {
                     it.copy(
-                        days = getWeekDaysUseCase(weekDates, taskRepositoryInteractor.getData()),
+                        days = getWeekDaysUseCase(weekDates, taskRepositoryInteractor.getData(),
+                            it.selectedSort),
                         weekDates = weekDates
                     )
                 }
@@ -80,7 +81,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    days = getWeekDaysUseCase(weekDates, it.tasks),
+                    days = getWeekDaysUseCase(weekDates, it.tasks, it.selectedSort),
                     weekDates = weekDates,
                 )
             }
@@ -95,7 +96,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             _state.update {
                 it.copy(
-                    days = getWeekDaysUseCase(weekDates, it.tasks),
+                    days = getWeekDaysUseCase(weekDates, it.tasks, it.selectedSort),
                     weekDates = weekDates
                 )
             }
@@ -137,7 +138,7 @@ class MainViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         weekDates = weekDates,
-                        days = getWeekDaysUseCase(weekDates, it.tasks)
+                        days = getWeekDaysUseCase(weekDates, it.tasks, it.selectedSort)
                     )
                 }
             }
@@ -166,7 +167,8 @@ class MainViewModel @Inject constructor(
             _state.update {
                 val days = updateWeekDaysUseCase(
                     daysList = it.days,
-                    taskList = it.tasks
+                    taskList = it.tasks,
+                    sort = it.selectedSort
                 )
 
                 it.copy(
@@ -184,7 +186,8 @@ class MainViewModel @Inject constructor(
                 taskRepositoryInteractor.updateTask(updatedTask)
                 val days = updateWeekDaysUseCase(
                     daysList = it.days,
-                    taskList = it.tasks
+                    taskList = it.tasks,
+                    sort = it.selectedSort
                 )
 
                 it.copy(
@@ -201,7 +204,8 @@ class MainViewModel @Inject constructor(
                 taskRepositoryInteractor.deleteTask(id)
                 val days = updateWeekDaysUseCase(
                     daysList = it.days,
-                    taskList = it.tasks
+                    taskList = it.tasks,
+                    sort = it.selectedSort
                 )
 
                 it.copy(
