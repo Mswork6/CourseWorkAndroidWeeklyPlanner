@@ -24,7 +24,7 @@ class TaskScreenViewModel @Inject constructor(
     private val _state = MutableStateFlow(TaskScreenState())
     val state: StateFlow<TaskScreenState> = _state.asStateFlow()
 
-    private fun validateTask(): Boolean {
+    fun validateTask(): Boolean {
         val currentName = _state.value.taskName.trim()
         when {
             currentName.isEmpty() -> {
@@ -48,50 +48,43 @@ class TaskScreenViewModel @Inject constructor(
         return true
     }
 
-    fun addTask(): Boolean {
-
-        if (validateTask()) {
-            viewModelScope.launch {
-                _state.update {
-                    it.copy(taskNameError = null)
-                }
-                val newTask = Task(
-                    id = UUID.randomUUID(),
-                    name = _state.value.taskName,
-                    description = _state.value.taskDescription,
-                    priority = _state.value.taskPriority,
-                    deadline = _state.value.taskDeadLine,
-                    notification = _state.value.taskNotification,
-                    notificationTime = _state.value.taskNotificationTime
-                        ?.let { _state.value.taskDeadLine.atTime(it) },
-                    isDone = false
-                )
-                taskRepositoryInteractor.addTask(task = newTask)
+    fun addTask() {
+        viewModelScope.launch {
+            _state.update {
+                it.copy(taskNameError = null)
             }
-            return true
-        } else return false
+            val newTask = Task(
+                id = UUID.randomUUID(),
+                name = _state.value.taskName,
+                description = _state.value.taskDescription,
+                priority = _state.value.taskPriority,
+                deadline = _state.value.taskDeadLine,
+                notification = _state.value.taskNotification,
+                notificationTime = _state.value.taskNotificationTime
+                    ?.let { _state.value.taskDeadLine.atTime(it) },
+                isDone = false
+            )
+            taskRepositoryInteractor.addTask(task = newTask)
+        }
+
     }
 
-    fun editTask(): Boolean {
-        if (validateTask()) {
-            viewModelScope.launch {
-                val oldTask = _state.value.taskId?.let { taskRepositoryInteractor.getTask(it) }
-                val editedTask = oldTask?.copy(
-                    name = _state.value.taskName,
-                    description = _state.value.taskDescription,
-                    deadline = _state.value.taskDeadLine,
-                    priority = _state.value.taskPriority,
-                    notification = _state.value.taskNotification,
-                    notificationTime = _state.value.taskNotificationTime
-                        ?.let { _state.value.taskDeadLine.atTime(it) },
-                )
-                if (editedTask != null) {
-                    taskRepositoryInteractor.updateTask(editedTask)
-                }
+    fun editTask() {
+        viewModelScope.launch {
+            val oldTask = _state.value.taskId?.let { taskRepositoryInteractor.getTask(it) }
+            val editedTask = oldTask?.copy(
+                name = _state.value.taskName,
+                description = _state.value.taskDescription,
+                deadline = _state.value.taskDeadLine,
+                priority = _state.value.taskPriority,
+                notification = _state.value.taskNotification,
+                notificationTime = _state.value.taskNotificationTime
+                    ?.let { _state.value.taskDeadLine.atTime(it) },
+            )
+            if (editedTask != null) {
+                taskRepositoryInteractor.updateTask(editedTask)
             }
-            return true
         }
-        return false
     }
 
     fun openTaskCalendar() {
@@ -164,8 +157,6 @@ class TaskScreenViewModel @Inject constructor(
                 null -> clearData()
             }
         }
-
-
     }
 
     private fun clearData() {
@@ -228,23 +219,4 @@ class TaskScreenViewModel @Inject constructor(
             it.copy(taskPriority = priority)
         }
     }
-
 }
-
-
-data class TaskScreenState(
-    val taskId: UUID? = null,
-    val taskName: String = "",
-    val taskDescription: String? = null,
-    val isTaskCalendarVisible: Boolean = false,
-    val taskDeadLine: LocalDate = LocalDate.now(),
-    val isPriorityWindowVisible: Boolean = false,
-    val taskPriority: Priority = Priority.BASIC,
-    val isTaskNotificationWindowVisible: Boolean = false,
-    val taskNotification: Boolean = false,
-    val taskNotificationTime: LocalTime? = null,
-    val taskNameError: String? = null,
-    val screenState: TaskScreenStates? = null,
-    val editState: Boolean = true,
-    val isPriorityScreenVisible: Boolean = false
-)

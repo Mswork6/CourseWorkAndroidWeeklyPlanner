@@ -49,13 +49,17 @@ fun TaskAddScreen(
             taskAddAction = {
                 when (state.screenState) {
                     TaskScreenStates.ADD -> {
-                        if (viewModel.addTask())
+                        if (viewModel.validateTask()) {
+                            viewModel.addTask()
                             taskAddAction()
+                        }
                     }
 
                     TaskScreenStates.EDIT -> {
-                        if (viewModel.editTask())
+                        if (viewModel.validateTask()) {
+                            viewModel.editTask()
                             taskAddAction()
+                        }
                     }
 
                     TaskScreenStates.OPEN -> {}
@@ -65,8 +69,6 @@ fun TaskAddScreen(
 
         )
     }) { padding: PaddingValues ->
-
-
         Column(
             modifier = Modifier
                 .padding(padding)

@@ -3,7 +3,7 @@ package com.example.courseworkandroidweeklyplanner.domain.models
 import androidx.compose.runtime.Immutable
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.*
+import java.util.UUID
 
 @Immutable
 data class Task(
@@ -15,4 +15,4 @@ data class Task(
     val notification: Boolean,
     val notificationTime: LocalDateTime?,
     val isDone: Boolean
-    )
+)

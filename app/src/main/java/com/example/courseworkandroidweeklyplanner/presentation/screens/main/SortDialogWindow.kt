@@ -32,13 +32,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.courseworkandroidweeklyplanner.R
-import com.example.courseworkandroidweeklyplanner.domain.models.SortStateEnum
+import com.example.courseworkandroidweeklyplanner.domain.models.SortStates
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 @Composable
 fun SortDialogWindow(
-    selectedOption: SortStateEnum,
-    onOptionSelected: (SortStateEnum) -> Unit,
+    selectedOption: SortStates,
+    onOptionSelected: (SortStates) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -113,11 +113,11 @@ fun SortDialogWindow(
 
 @Composable
 fun RadioButtonGroupWithEnum(
-    selectedOption: SortStateEnum,
-    onOptionSelected: (SortStateEnum) -> Unit
+    selectedOption: SortStates,
+    onOptionSelected: (SortStates) -> Unit
 ) {
     Column {
-        SortStateEnum.entries.forEach { option ->
+        SortStates.entries.forEach { option ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
@@ -134,7 +134,7 @@ fun RadioButtonGroupWithEnum(
                     )
                 )
                 Text(
-                    text = option.description,
+                    text = stringResource(option.description)   ,
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -149,7 +149,7 @@ fun RadioButtonGroupWithEnum(
 fun RadioDialogWindowPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
         SortDialogWindow(
-            selectedOption = SortStateEnum.STANDARD,
+            selectedOption = SortStates.STANDARD,
             onOptionSelected = {},
             onDismissRequest = {}
         )

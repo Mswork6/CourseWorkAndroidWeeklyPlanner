@@ -28,7 +28,7 @@ import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.Da
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
-    onTaskAddScreen: (taskId: String?, state: String) -> Unit,
+    onTaskAddScreen: (_: String?, state: String) -> Unit,
     onTaskEditScreen: (taskId: String, state: String) -> Unit,
     onTaskOpenScreen: (taskId: String, state: String) -> Unit,
     modifier: Modifier = Modifier

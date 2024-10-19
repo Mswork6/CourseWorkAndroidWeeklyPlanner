@@ -1,7 +1,9 @@
 package com.example.courseworkandroidweeklyplanner.domain.models
 
-enum class Priority (val description: String)  {
-    HIGH("Высокий"),
-    BASIC("Стандартный"),
-    LOW("Низкий")
+import com.example.courseworkandroidweeklyplanner.R
+
+enum class Priority (val description: Int)  {
+    HIGH(R.string.description_high),
+    BASIC(R.string.description_basic),
+    LOW(R.string.description_low)
 }

@@ -43,6 +43,4 @@ class TaskRepositoryInteractor : TaskRepository {
     }
 
     override fun getTask(taskId: UUID): Task = _tasks.value.first { it.id == taskId }
-
-
 }

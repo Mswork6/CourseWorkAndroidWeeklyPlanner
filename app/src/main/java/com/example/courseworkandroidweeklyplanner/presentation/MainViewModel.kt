@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepositoryInteractor
 import com.example.courseworkandroidweeklyplanner.domain.interactors.CalendarInteractor
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
-import com.example.courseworkandroidweeklyplanner.domain.models.SortStateEnum
+import com.example.courseworkandroidweeklyplanner.domain.models.SortStates
 import com.example.courseworkandroidweeklyplanner.domain.models.Task
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekDaysUseCase
@@ -227,23 +227,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setSelectedOption(option: SortStateEnum) {
+    fun setSelectedOption(option: SortStates) {
         _state.update {
             it.copy(selectedSort = option)
         }
     }
-
-
 }
-
-data class MainScreenState(
-    val tasks: List<Task> = emptyList(),
-    val days: List<Day> = emptyList(),
-    val weekDates: WeekDates = WeekDates(LocalDate.now(), LocalDate.now()),
-    val isCalendarVisible: Boolean = false,
-    val searchDate: LocalDate? = null,
-    val currentTask: Task? = null,
-    val isRadioScreenVisible: Boolean = false,
-    val selectedSort: SortStateEnum = SortStateEnum.STANDARD
-
-)

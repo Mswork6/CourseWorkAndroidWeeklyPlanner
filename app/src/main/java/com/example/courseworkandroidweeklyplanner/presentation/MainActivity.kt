@@ -28,15 +28,19 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(navController, startDestination = "main_screen") {
                     composable("main_screen") {
-                        MainScreen(onTaskAddScreen = { taskId: String?, state: String ->
+                        MainScreen(onTaskAddScreen = { _: String?,
+                                                       state: String ->
+                            navController.navigate("task_add_screen/${null}/${state}")
+                        }, onTaskEditScreen = { taskId: String,
+                                                state: String ->
                             navController.navigate("task_add_screen/${taskId}/${state}")
-                        }, onTaskEditScreen = { taskId: String, state: String ->
-                            navController.navigate("task_add_screen/${taskId}/${state}")
-                        }, onTaskOpenScreen = { taskId: String, state: String ->
+                        }, onTaskOpenScreen = { taskId: String,
+                                                state: String ->
                             navController.navigate("task_add_screen/${taskId}/${state}")
                         })
                     }
-                    composable(route = "task_add_screen/{taskId}/{state}",
+                    composable(
+                        route = "task_add_screen/{taskId}/{state}",
                         arguments = listOf(navArgument("taskId") {
                             nullable = true
                             type = NavType.StringType

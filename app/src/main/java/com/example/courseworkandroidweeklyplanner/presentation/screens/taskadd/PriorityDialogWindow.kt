@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.courseworkandroidweeklyplanner.R
 import com.example.courseworkandroidweeklyplanner.domain.models.Priority
-import com.example.courseworkandroidweeklyplanner.domain.models.SortStateEnum
+import com.example.courseworkandroidweeklyplanner.domain.models.SortStates
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 @Composable
@@ -135,7 +135,7 @@ fun RadioButtonGroupWithPriorityEnum(
                     )
                 )
                 Text(
-                    text = option.description,
+                    text = stringResource(option.description),
                     style = MaterialTheme.typography.bodyLarge,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -150,7 +150,7 @@ fun RadioButtonGroupWithPriorityEnum(
 fun PriorityDialogWindowPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
         SortDialogWindow(
-            selectedOption = SortStateEnum.STANDARD,
+            selectedOption = SortStates.STANDARD,
             onOptionSelected = {},
             onDismissRequest = {}
         )

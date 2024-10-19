@@ -30,5 +30,15 @@
     <string name="description_low">Low</string>
     <string name="error_empty_title">Tittle cannot be empty</string>
     <string name="error_long_tittle">Tittle cannot exceed 100 characters</string>
+    <string name="description_sort_priority_ascending">Priority ascending</string>
+    <string name="description_sort_priority_descending">Priority descending</string>
+    <string name="description_no_sorting">No sorting</string>
+    <string name="day_monday">Monday</string>
+    <string name="day_tuesday">Tuesday</string>
+    <string name="day_wednesday">Wednesday</string>
+    <string name="day_thursday">Thursday</string>
+    <string name="day_friday">Friday</string>
+    <string name="day_saturday">Saturday</string>
+    <string name="day_sunday">Sunday</string>
 
 </resources>

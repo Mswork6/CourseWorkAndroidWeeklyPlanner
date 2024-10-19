@@ -31,4 +31,14 @@
     <string name="description_low">Низкий</string>
     <string name="error_empty_title">Заголовок не может быть пустым</string>
     <string name="error_long_tittle">Заголовок не может превышать 100 символов</string>
+    <string name="description_sort_priority_ascending">По возрастанию приоритета</string>
+    <string name="description_sort_priority_descending">По убыванию приоритета</string>
+    <string name="description_no_sorting">Без сортировки</string>
+    <string name="day_monday">Понедельник</string>
+    <string name="day_tuesday">Вторник</string>
+    <string name="day_wednesday">Среда</string>
+    <string name="day_thursday">Четверг</string>
+    <string name="day_friday">Пятница</string>
+    <string name="day_saturday">Суббота</string>
+    <string name="day_sunday">Воскресенье</string>
 </resources>

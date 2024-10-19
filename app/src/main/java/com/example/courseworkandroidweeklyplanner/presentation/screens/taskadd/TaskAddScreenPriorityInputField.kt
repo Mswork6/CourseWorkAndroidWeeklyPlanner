@@ -41,9 +41,9 @@ internal fun TaskAddScreenPriorityInputField(
         )
         Text(
             text = when (priority) {
-                Priority.HIGH -> stringResource(R.string.description_high)
-                Priority.BASIC -> stringResource(R.string.description_standard)
-                Priority.LOW -> stringResource(R.string.description_low)
+                Priority.HIGH -> stringResource(Priority.HIGH.description)
+                Priority.BASIC -> stringResource(Priority.BASIC.description)
+                Priority.LOW -> stringResource(Priority.LOW.description)
             },
             style = MaterialTheme.typography.labelSmall
         )

@@ -27,7 +27,4 @@ class TaskDialogWindowInteractor {
             isDone = !task.isDone
         )
     }
-
-
-
 }

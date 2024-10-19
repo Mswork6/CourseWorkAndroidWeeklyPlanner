@@ -1,5 +1,6 @@
 package com.example.courseworkandroidweeklyplanner.domain.models
 
+import com.example.courseworkandroidweeklyplanner.R
 
 
 enum class DayEnum(val description: String) {
