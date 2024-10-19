@@ -1,36 +1,36 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.PointerIcon.Companion.Text
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
-import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = viewModel(),
+    viewModel: MainViewModel = hiltViewModel(),
+    onTaskAddScreen: (_: String?, state: String) -> Unit,
+    onTaskEditScreen: (taskId: String, state: String) -> Unit,
+    onTaskOpenScreen: (taskId: String, state: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val state by viewModel.state.collectAsState()
@@ -49,7 +49,7 @@ fun MainScreen(
         },
         floatingActionButton = {
             MainScreenFloatingActionButton(
-                onClick = { }
+                onClick = { onTaskAddScreen(null, TaskScreenStates.ADD.name) }
             )
         }
     ) { padding: PaddingValues ->
@@ -65,7 +65,7 @@ fun MainScreen(
         ) {
             MainScreenSearchFilterButtons(
                 searchClickAction = { viewModel.openCalendar() },
-                filterClickAction = {},
+                filterClickAction = { viewModel.showRadioScreen() },
                 modifier = Modifier.fillMaxWidth()
             )
             LazyColumn {
@@ -73,13 +73,15 @@ fun MainScreen(
                     DayCard(
                         day = item,
                         onDayItemClick = { viewModel.changeDayCard(item) },
-                        onTaskItemClick = {},
+                        onTaskItemClick = { task -> viewModel.openTaskDialogWindow(task) },
                         dayItemModifier = Modifier
+                            .fillMaxWidth()
                             .padding(top = 16.dp),
                         taskItemModifier = Modifier
+                            .fillMaxWidth()
                             .padding(
-                                start = 16.dp, end = 4.dp,
-                                top = 8.dp
+                                start = 16.dp,
+                                top = 16.dp,
                             )
                     )
                 }
@@ -98,19 +100,28 @@ fun MainScreen(
             },
             onDismiss = { viewModel.dismissCalendar() }
         )
-
     }
 
+    state.currentTask?.let { task ->
+        TaskDialogWindow(
+            task = task,
+            onDismissRequest = { viewModel.dismissDialogWindow() },
+            onCompleteTask = { viewModel.completeTask(it) },
+            onOpenTask = { onTaskOpenScreen(task.id.toString(), TaskScreenStates.OPEN.name) },
+            onEditTask = { onTaskEditScreen(task.id.toString(), TaskScreenStates.EDIT.name) },
+            onDeleteTask = { viewModel.deleteTask(it) }
+        )
+    }
 
-}
-
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Composable
-private fun MainScreenPreview() {
-    CourseWorkAndroidWeeklyPlannerTheme {
-        MainScreen(
-            modifier = Modifier.fillMaxSize()
+    if (state.isRadioScreenVisible) {
+        SortDialogWindow(
+            selectedOption = state.selectedSort,
+            onOptionSelected = { option ->
+                viewModel.setSelectedOption(option)
+                viewModel.updateData()
+            },
+            onDismissRequest = { viewModel.hideRadioScreen() },
+            modifier = Modifier.fillMaxWidth(0.9f)
         )
     }
 }

@@ -1,20 +1,16 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 
 import android.content.res.Configuration
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -35,57 +31,45 @@ fun TaskItem(
     task: Task,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
-) = Card(
+) = ItemCard(
     shape = MaterialTheme.shapes.large,
     colors = CardDefaults.cardColors(
         containerColor = MaterialTheme.colorScheme.primary
     ),
-    elevation = CardDefaults.cardElevation(2.dp),
-    modifier = modifier.clickable(onClick = onClick)
+    onClick = onClick,
+    modifier = modifier
+
 ) {
-    Row(
+    Icon(
+        imageVector = when (task.isDone) {
+            true -> ImageVector.vectorResource(R.drawable.icon_checkbox_done)
+            false -> ImageVector.vectorResource(R.drawable.baseline_check_box_outline_blank_24)
+        },
+        contentDescription = stringResource(R.string.description_task_check_box),
+        tint = if (task.isDone) {
+            Color.Unspecified
+        } else {
+            when (task.priority) {
+                Priority.LOW -> colorResource(R.color.gray)
+                Priority.BASIC -> colorResource(R.color.black)
+                Priority.HIGH -> colorResource(R.color.red)
+                else -> colorResource(R.color.purple_700)
+            }
+        },
+
+        )
+    Spacer(modifier = Modifier.width(16.dp))
+    Text(
+        text = task.name,
         modifier = Modifier
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        Row(
-            modifier = Modifier
-                .weight(4f)
-                .padding(start = 12.dp)
-        ) {
-            Icon(
-                imageVector = when (task.isDone) {
-                    true -> ImageVector.vectorResource(R.drawable.icon_checkbox_done)
-                    false -> ImageVector.vectorResource(R.drawable.baseline_check_box_outline_blank_24)
-                },
-                contentDescription = stringResource(R.string.description_task_check_box),
-                tint = if (task.isDone) {
-                    Color.Unspecified
-                } else {
-                    when (task.priority) {
-                        Priority.LOW -> colorResource(R.color.gray)
-                        Priority.BASIC -> colorResource(R.color.black)
-                        Priority.HIGH -> colorResource(R.color.red)
-                    }
-                },
-
-                )
-            Text(
-                text = task.name,
-                modifier = Modifier
-                    .padding(start = 4.dp)
-            )
-        }
-        if (task.notification) {
-            Icon(
-                modifier = Modifier
-                    .weight(1f),
-                imageVector = Icons.Default.Notifications,
-                contentDescription = stringResource(R.string.description_notification)
-            )
-        }
-
+            .weight(5f)
+    )
+    if (task.notification) {
+        Icon(
+            imageVector = Icons.Default.Notifications,
+            contentDescription = stringResource(R.string.description_notification),
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 
@@ -103,6 +87,7 @@ private fun TaskCardWithIconPreview() {
                 LocalDate.of(2024, 10, 13),
                 Priority.HIGH,
                 notification = true,
+                notificationTime = null,
                 isDone = true
             ),
             modifier = Modifier.fillMaxWidth()

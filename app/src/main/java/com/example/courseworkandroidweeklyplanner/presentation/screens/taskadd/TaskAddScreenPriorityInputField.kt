@@ -14,14 +14,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.courseworkandroidweeklyplanner.R
+import com.example.courseworkandroidweeklyplanner.domain.models.Priority
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 @Composable
 internal fun TaskAddScreenPriorityInputField(
+    editState: Boolean,
+    priority: Priority,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) = Row(
-    modifier = modifier.clickable(onClick = onClick),
+    modifier = modifier.clickable(
+        onClick = onClick,
+        enabled = editState
+    ),
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceBetween
 ) {
@@ -34,7 +40,11 @@ internal fun TaskAddScreenPriorityInputField(
             style = MaterialTheme.typography.titleSmall
         )
         Text(
-            text = stringResource(R.string.description_basic),
+            text = when (priority) {
+                Priority.HIGH -> stringResource(Priority.HIGH.description)
+                Priority.BASIC -> stringResource(Priority.BASIC.description)
+                Priority.LOW -> stringResource(Priority.LOW.description)
+            },
             style = MaterialTheme.typography.labelSmall
         )
     }
@@ -46,6 +56,8 @@ internal fun TaskAddScreenPriorityInputField(
 private fun TaskAddScreenPriorityInputFieldPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
         TaskAddScreenPriorityInputField(
+            editState = true,
+            priority = Priority.HIGH,
             onClick = {},
             modifier = Modifier.fillMaxWidth()
         )

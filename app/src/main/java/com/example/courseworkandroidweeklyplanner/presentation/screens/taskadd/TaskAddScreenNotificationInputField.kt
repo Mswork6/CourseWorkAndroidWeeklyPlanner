@@ -1,6 +1,7 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd
 
 import android.content.res.Configuration
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,20 +22,29 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.courseworkandroidweeklyplanner.R
+import com.example.courseworkandroidweeklyplanner.presentation.util.timeToString
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 @Composable
 internal fun TaskAddScreenNotificationInputField(
+    selectedTime: LocalTime?,
     isChecked: Boolean,
+    editState: Boolean,
     onClick: () -> Unit,
     onTaskNotificationChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) = Row(
-    modifier = modifier.clickable(onClick = onClick),
+    modifier = Modifier.fillMaxWidth(),
     verticalAlignment = Alignment.CenterVertically,
-    horizontalArrangement = Arrangement.SpaceBetween
 ) {
     Column(
+        modifier = modifier
+            .clickable(
+                enabled = isChecked && editState,
+                onClick = onClick)
+            .weight(3f),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start
     ) {
@@ -43,11 +53,17 @@ internal fun TaskAddScreenNotificationInputField(
             style = MaterialTheme.typography.titleSmall
         )
         Text(
-            text = stringResource(R.string.description_not_defined),
+            text = if (isChecked && selectedTime != null) {
+                timeToString(selectedTime)
+            } else {
+                stringResource(R.string.description_not_defined)
+            },
             style = MaterialTheme.typography.labelSmall
         )
     }
+    Log.d("lipec", selectedTime.toString())
     Switch(
+        enabled = editState,
         colors = SwitchDefaults.colors(
             checkedTrackColor = Color.White,
             uncheckedTrackColor = Color.White,
@@ -57,7 +73,9 @@ internal fun TaskAddScreenNotificationInputField(
             uncheckedThumbColor = Color.Black,
         ),
         checked = isChecked,
-        onCheckedChange = onTaskNotificationChange
+        onCheckedChange = { checked ->
+            onTaskNotificationChange(checked)
+        }
     )
 }
 
@@ -68,7 +86,9 @@ private fun TaskAddScreenNotificationInputFieldPreview() {
     var isChecked by remember { mutableStateOf(false) }
     CourseWorkAndroidWeeklyPlannerTheme {
         TaskAddScreenNotificationInputField(
+            selectedTime = null,
             isChecked = isChecked,
+            editState = false,
             onClick = {},
             onTaskNotificationChange = { isChecked = it },
             modifier = Modifier.fillMaxWidth()

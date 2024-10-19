@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
 import com.example.courseworkandroidweeklyplanner.domain.models.DayEnum
 import com.example.courseworkandroidweeklyplanner.domain.models.Priority
@@ -19,7 +21,7 @@ import java.util.UUID
 fun DayCard(
     day: Day,
     onDayItemClick: () -> Unit,
-    onTaskItemClick: () -> Unit,
+    onTaskItemClick: (Task) -> Unit,
     dayItemModifier: Modifier = Modifier,
     taskItemModifier: Modifier = Modifier
 ) = Column {
@@ -33,7 +35,7 @@ fun DayCard(
             for (task in day.tasks) {
                 TaskItem(
                     task = task,
-                    onClick = onTaskItemClick,
+                    onClick = { onTaskItemClick(task) },
                     modifier = taskItemModifier
                 )
             }
@@ -54,6 +56,7 @@ private fun DayCardPreview() {
                 deadline = LocalDate.of(2024, 10, 25),
                 priority = Priority.HIGH,
                 notification = true,
+                notificationTime = null,
                 isDone = false
             ),
 
@@ -64,6 +67,7 @@ private fun DayCardPreview() {
                 deadline = LocalDate.of(2024, 10, 25),
                 priority = Priority.HIGH,
                 notification = true,
+                notificationTime = null,
                 isDone = false
             )
         )
@@ -79,7 +83,15 @@ private fun DayCardPreview() {
         DayCard(
             day = day,
             onDayItemClick = { },
-            onTaskItemClick = { }
+            onTaskItemClick = { },
+            dayItemModifier = Modifier,
+                //.padding(top = 16.dp),
+            taskItemModifier = Modifier
+                .padding(
+                    start = 16.dp,
+                    top = 16.dp,
+                    bottom = 16.dp
+                )
         )
 
     }

@@ -1,6 +1,7 @@
 package com.example.courseworkandroidweeklyplanner.domain.interactors
 
 import androidx.compose.runtime.mutableStateOf
+import com.example.courseworkandroidweeklyplanner.presentation.util.convertToLocalDate
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,9 +33,7 @@ class CalendarInteractor {
     fun confirmDate(dateMillis: Long?) {
         dateMillis?.let {
             selectedDateInternal.update {
-                Instant.ofEpochMilli(dateMillis)
-                    .atZone(ZoneId.systemDefault())
-                    .toLocalDate()
+                convertToLocalDate(dateMillis)
             }
         }
         dismissCalendar()

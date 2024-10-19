@@ -1,15 +1,9 @@
 package com.example.courseworkandroidweeklyplanner.domain.models
 
-enum class Priority {
-    LOW,
-    BASIC,
-    HIGH;
+import com.example.courseworkandroidweeklyplanner.R
 
-    override fun toString(): String {
-        return when(this) {
-            LOW -> "Низкий"
-            BASIC -> "Стандартный"
-            HIGH -> "Высокий"
-        }
-    }
+enum class Priority (val description: Int)  {
+    HIGH(R.string.description_high),
+    BASIC(R.string.description_basic),
+    LOW(R.string.description_low)
 }

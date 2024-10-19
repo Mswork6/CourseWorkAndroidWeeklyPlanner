@@ -1,14 +1,18 @@
 package com.example.courseworkandroidweeklyplanner.domain.models
 
+import androidx.compose.runtime.Immutable
 import java.time.LocalDate
-import java.util.*
+import java.time.LocalDateTime
+import java.util.UUID
 
+@Immutable
 data class Task(
     val id: UUID,
-    var name: String,
-    var description: String,
-    var deadline: LocalDate,
-    var priority: Priority,
-    var notification: Boolean,
-    var  isDone: Boolean
-    )
+    val name: String,
+    val description: String?,
+    val deadline: LocalDate,
+    val priority: Priority,
+    val notification: Boolean,
+    val notificationTime: LocalDateTime?,
+    val isDone: Boolean
+)
