@@ -1,7 +1,6 @@
 package com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd
 
 import android.content.res.Configuration
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.main.PriorityDialogWindow
@@ -32,7 +31,7 @@ import java.time.LocalTime
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskAddScreen(
-    viewModel: TaskScreenViewModel = viewModel(),
+    viewModel: TaskScreenViewModel = hiltViewModel(),
     taskId: String?,
     screenState: TaskScreenStates,
     navigateBackAction: () -> Unit,

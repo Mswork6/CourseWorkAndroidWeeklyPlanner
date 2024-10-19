@@ -10,8 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
-import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreenRoute
-import com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd.TaskAddScreenRoute
+import com.example.courseworkandroidweeklyplanner.presentation.screens.main.MainScreen
+import com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd.TaskAddScreen
 import com.example.courseworkandroidweeklyplanner.presentation.util.lifecycleIsResumed
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
 
                 NavHost(navController, startDestination = "main_screen") {
                     composable("main_screen") {
-                        MainScreenRoute(onTaskAddScreen = { taskId: String?, state: String ->
+                        MainScreen(onTaskAddScreen = { taskId: String?, state: String ->
                             navController.navigate("task_add_screen/${taskId}/${state}")
                         }, onTaskEditScreen = { taskId: String, state: String ->
                             navController.navigate("task_add_screen/${taskId}/${state}")
@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
                         val stateScreen = state?.let { TaskScreenStates.valueOf(it) }
 
                         stateScreen?.let {
-                            TaskAddScreenRoute(
+                            TaskAddScreen(
                                 taskId = taskId,
                                 screenState = it,
                                 navigateBackAction = {

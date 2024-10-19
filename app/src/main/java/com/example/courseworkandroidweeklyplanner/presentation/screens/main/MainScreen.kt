@@ -18,7 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.presentation.MainViewModel
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
@@ -27,7 +27,7 @@ import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.Da
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = viewModel(),
+    viewModel: MainViewModel = hiltViewModel(),
     onTaskAddScreen: (taskId: String?, state: String) -> Unit,
     onTaskEditScreen: (taskId: String, state: String) -> Unit,
     onTaskOpenScreen: (taskId: String, state: String) -> Unit,
