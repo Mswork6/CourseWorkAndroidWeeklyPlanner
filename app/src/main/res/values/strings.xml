@@ -23,5 +23,7 @@
     <string name="action_open_task">Open task</string>
     <string name="action_edit_task">Edit task</string>
     <string name="action_delete_task">Delete task</string>
+    <string name="description_choose_task_priority">Choose task priority</string>
+    <string name="description_choose_sorting_type">Choose sorting type</string>
 
 </resources>

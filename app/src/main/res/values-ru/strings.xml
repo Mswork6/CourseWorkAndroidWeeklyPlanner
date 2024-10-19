@@ -24,4 +24,6 @@
     <string name="action_open_task">Открыть задачу</string>
     <string name="action_edit_task">Редактировать задачу</string>
     <string name="action_delete_task">Удалить задачу</string>
+    <string name="description_choose_task_priority">Выберите приоритет задачи</string>
+    <string name="description_choose_sorting_type">Выберите режим сортировки</string>
 </resources>

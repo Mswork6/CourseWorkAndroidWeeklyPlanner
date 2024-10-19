@@ -23,6 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenState
 import com.example.courseworkandroidweeklyplanner.presentation.TaskScreenViewModel
+import com.example.courseworkandroidweeklyplanner.presentation.screens.main.PriorityDialogWindow
 import com.example.courseworkandroidweeklyplanner.presentation.screens.main.SortDialogWindow
 import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.DatePickerModal
 import com.example.courseworkandroidweeklyplanner.presentation.util.PastOrPresentSelectableDates
@@ -136,7 +137,7 @@ fun TaskAddScreen(
         }
 
         if (state.isPriorityScreenVisible) {
-            SortDialogWindow(
+            PriorityDialogWindow(
                 selectedOption = state.taskPriority,
                 onOptionSelected = { option ->
                     viewModel.setSelectedOption(option)
