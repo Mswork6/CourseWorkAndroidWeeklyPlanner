@@ -41,7 +41,7 @@ class MainViewModel @Inject constructor(
                 val weekDates = getWeekUseCase(LocalDate.now())
                 _state.update {
                     it.copy(
-                        days = getWeekDaysUseCase(weekDates, it.tasks),
+                        days = getWeekDaysUseCase(weekDates, taskRepositoryInteractor.getData()),
                         weekDates = weekDates
                     )
                 }
@@ -65,6 +65,7 @@ class MainViewModel @Inject constructor(
                     _state.update {
                         it.copy(tasks = tasks)
                     }
+                    updateData()
                 }
             }
         }

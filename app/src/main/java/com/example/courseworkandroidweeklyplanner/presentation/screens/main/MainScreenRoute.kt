@@ -3,6 +3,7 @@ package com.example.courseworkandroidweeklyplanner.presentation.screens.main
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 
 import androidx.lifecycle.ViewModelStore
@@ -23,11 +24,11 @@ fun MainScreenRoute(
 //        key = "MainVM"
 //    )
     val mainViewModel: MainViewModel = hiltViewModel()
-    val state = mainViewModel.state.collectAsState()
+    val state by mainViewModel.state.collectAsState()
 
     MainScreen(
         viewModel = mainViewModel,
-        state = state.value,
+        //state = state,
         onTaskAddScreen = onTaskAddScreen,
         onTaskEditScreen = onTaskEditScreen,
         onTaskOpenScreen = onTaskOpenScreen

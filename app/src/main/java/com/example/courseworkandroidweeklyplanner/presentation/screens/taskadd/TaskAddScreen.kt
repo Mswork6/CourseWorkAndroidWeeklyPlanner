@@ -12,6 +12,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,15 +32,16 @@ import java.time.LocalTime
 @Composable
 fun TaskAddScreen(
     viewModel: TaskScreenViewModel = viewModel(),
-    state: TaskScreenState,
+    //state: TaskScreenState,
     taskId: String?,
     screenState: TaskScreenStates?,
     navigateBackAction: () -> Unit,
     taskAddAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Log.d("chelyabinsk", "In Add Screen")
+    //Log.d("chelyabinsk", "In Add Screen")
 
+    val state by viewModel.state.collectAsState()
     viewModel.setTaskScreenState(screenState)
     viewModel.checkScreenState(taskId = taskId)
 
@@ -49,11 +52,11 @@ fun TaskAddScreen(
             taskAddAction = {
                 when (state.screenState) {
                     TaskScreenStates.ADD -> {
-                        viewModel.addTask()
+                        if (viewModel.addTask())
                         taskAddAction()
                     }
                     TaskScreenStates.EDIT -> {
-                        viewModel.editTask()
+                        if (viewModel.editTask())
                         taskAddAction()
                     }
                     TaskScreenStates.OPEN -> {}

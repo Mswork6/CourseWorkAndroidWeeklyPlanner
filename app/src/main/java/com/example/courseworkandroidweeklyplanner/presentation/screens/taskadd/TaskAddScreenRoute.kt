@@ -3,6 +3,7 @@ package com.example.courseworkandroidweeklyplanner.presentation.screens.taskadd
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
@@ -25,11 +26,11 @@ fun TaskAddScreenRoute(
 //        key = "TaskVM"
 //    )
     val taskViewModel: TaskScreenViewModel = hiltViewModel()
-    val state = taskViewModel.state.collectAsState()
+    //val state by taskViewModel.state.collectAsState()
 
     TaskAddScreen(
         viewModel = taskViewModel,
-        state = state.value,
+        //state = state,
         taskId = taskId,
         screenState = screenState,
         navigateBackAction = navigateBackAction,

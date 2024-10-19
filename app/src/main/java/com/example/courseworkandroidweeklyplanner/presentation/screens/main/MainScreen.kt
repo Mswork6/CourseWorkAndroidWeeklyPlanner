@@ -32,7 +32,7 @@ import com.example.courseworkandroidweeklyplanner.presentation.screens.shared.Da
 @Composable
 fun MainScreen(
     viewModel: MainViewModel = viewModel(),
-    state: MainScreenState,
+    //state: MainScreenState,
     onTaskAddScreen: (taskId: String?, state: String?) -> Unit,
     onTaskEditScreen: (taskId: String?, state: String?) -> Unit,
     onTaskOpenScreen: (taskId: String?, state: String?) -> Unit,
@@ -57,8 +57,7 @@ fun MainScreen(
                 onClick = {
                     viewModel.setTaskEditState(state = TaskScreenStates.ADD)
                     Log.d("chelyabinsk", "Main Screen state: ${state.taskEditState?.name}")
-                    //state.taskEditState?.name
-                    onTaskAddScreen( "32sdg3fdsg31", TaskScreenStates.ADD.name )
+                    onTaskAddScreen( "e32husdia3123", TaskScreenStates.ADD.name )
                 }
             )
         }
