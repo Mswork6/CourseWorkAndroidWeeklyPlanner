@@ -34,13 +34,12 @@ import androidx.compose.ui.window.Dialog
 import com.example.courseworkandroidweeklyplanner.R
 import com.example.courseworkandroidweeklyplanner.domain.models.Priority
 import com.example.courseworkandroidweeklyplanner.domain.models.SortStateEnum
-import com.example.courseworkandroidweeklyplanner.domain.models.StateInterface
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 @Composable
 fun PriorityDialogWindow(
-    selectedOption: StateInterface,
-    onOptionSelected: (StateInterface) -> Unit,
+    selectedOption: Priority,
+    onOptionSelected: (Priority) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -115,8 +114,8 @@ fun PriorityDialogWindow(
 
 @Composable
 fun RadioButtonGroupWithPriorityEnum(
-    selectedOption: StateInterface,
-    onOptionSelected: (StateInterface) -> Unit
+    selectedOption: Priority,
+    onOptionSelected: (Priority) -> Unit
 ) {
     Column {
         Priority.entries.forEach { option ->
@@ -151,7 +150,7 @@ fun RadioButtonGroupWithPriorityEnum(
 fun PriorityDialogWindowPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
         SortDialogWindow(
-            selectedOption = SortStateEnum.STANDART,
+            selectedOption = SortStateEnum.STANDARD,
             onOptionSelected = {},
             onDismissRequest = {}
         )

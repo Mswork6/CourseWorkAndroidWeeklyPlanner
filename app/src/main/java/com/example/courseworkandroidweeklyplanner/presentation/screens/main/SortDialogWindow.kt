@@ -32,15 +32,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.courseworkandroidweeklyplanner.R
-import com.example.courseworkandroidweeklyplanner.domain.models.Priority
 import com.example.courseworkandroidweeklyplanner.domain.models.SortStateEnum
 import com.example.courseworkandroidweeklyplanner.domain.models.StateInterface
 import com.example.courseworkandroidweeklyplanner.ui.theme.CourseWorkAndroidWeeklyPlannerTheme
 
 @Composable
 fun SortDialogWindow(
-    selectedOption: StateInterface,
-    onOptionSelected: (StateInterface) -> Unit,
+    selectedOption: SortStateEnum,
+    onOptionSelected: (SortStateEnum) -> Unit,
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -115,8 +114,8 @@ fun SortDialogWindow(
 
 @Composable
 fun RadioButtonGroupWithEnum(
-    selectedOption: StateInterface,
-    onOptionSelected: (StateInterface) -> Unit
+    selectedOption: SortStateEnum,
+    onOptionSelected: (SortStateEnum) -> Unit
 ) {
     Column {
         SortStateEnum.entries.forEach { option ->
@@ -151,7 +150,7 @@ fun RadioButtonGroupWithEnum(
 fun RadioDialogWindowPreview() {
     CourseWorkAndroidWeeklyPlannerTheme {
         SortDialogWindow(
-            selectedOption = SortStateEnum.STANDART,
+            selectedOption = SortStateEnum.STANDARD,
             onOptionSelected = {},
             onDismissRequest = {}
         )

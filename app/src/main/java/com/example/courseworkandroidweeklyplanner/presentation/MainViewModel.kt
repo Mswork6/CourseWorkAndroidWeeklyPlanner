@@ -7,11 +7,9 @@ import com.example.courseworkandroidweeklyplanner.data.repository.TaskRepository
 import com.example.courseworkandroidweeklyplanner.domain.interactors.CalendarInteractor
 import com.example.courseworkandroidweeklyplanner.domain.models.Day
 import com.example.courseworkandroidweeklyplanner.domain.models.SortStateEnum
-import com.example.courseworkandroidweeklyplanner.domain.models.StateInterface
 import com.example.courseworkandroidweeklyplanner.domain.models.Task
 import com.example.courseworkandroidweeklyplanner.domain.models.TaskScreenStates
 import com.example.courseworkandroidweeklyplanner.domain.models.WeekDates
-
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekDaysUseCase
 import com.example.courseworkandroidweeklyplanner.domain.usecases.GetWeekUseCase
 import com.example.courseworkandroidweeklyplanner.domain.usecases.UpdateWeekDaysUseCase
@@ -237,7 +235,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun setSelectedOption(option: StateInterface) {
+    fun setSelectedOption(option: SortStateEnum) {
         _state.update {
             it.copy(selectedSort = option)
         }
@@ -256,7 +254,7 @@ data class MainScreenState(
     val currentTask: Task? = null,
     val taskEditState: TaskScreenStates? = null,
     val isRadioScreenVisible: Boolean = false, // Новое поле
-    val selectedSort: StateInterface = SortStateEnum.STANDART // Новое поле
+    val selectedSort: SortStateEnum = SortStateEnum.STANDARD // Новое поле
 
 )
 

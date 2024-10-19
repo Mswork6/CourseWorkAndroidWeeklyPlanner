@@ -1,7 +1,7 @@
 package com.example.courseworkandroidweeklyplanner.domain.models
 
-enum class SortStateEnum(override val description: String) : StateInterface {
+enum class SortStateEnum( val description: String)  {
     INCREASE("По возрастанию приоритета"),
     DECREASE("По убыванию приоритета"),
-    STANDART("Без сортировки")
+    STANDARD("Без сортировки")
 }

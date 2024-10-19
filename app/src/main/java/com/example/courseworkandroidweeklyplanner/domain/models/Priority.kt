@@ -1,6 +1,6 @@
 package com.example.courseworkandroidweeklyplanner.domain.models
 
-enum class Priority (override val description: String) : StateInterface {
+enum class Priority (val description: String)  {
     HIGH("Высокий"),
     BASIC("Стандартный"),
     LOW("Низкий")

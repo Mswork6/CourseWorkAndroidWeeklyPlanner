@@ -15,6 +15,7 @@ class GetWeekDaysUseCase {
             val dayName =
                 DayEnum.entries.find { it.ordinal == dayOfWeek.ordinal }?.description ?: ""
             val tasks = taskList.filter { it.deadline == currentDate }
+            //tasks.sortedBy { it.priority }
             daysOfWeek.add(
                 Day(
                     id = index,

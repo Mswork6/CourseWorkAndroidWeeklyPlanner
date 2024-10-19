@@ -234,7 +234,7 @@ class TaskScreenViewModel @Inject constructor(
         }
     }
 
-    fun setSelectedOption(priority: StateInterface) {
+    fun setSelectedOption(priority: Priority) {
         _state.update {
             it.copy(taskPriority = priority)
         }
@@ -251,7 +251,7 @@ data class TaskScreenState(
     val isTaskCalendarVisible: Boolean = false,
     val taskDeadLine: LocalDate = LocalDate.now(),
     val isPriorityWindowVisible: Boolean = false,
-    val taskPriority: StateInterface = Priority.BASIC,
+    val taskPriority: Priority = Priority.BASIC,
     val isTaskNotificationWindowVisible: Boolean = false,
     val taskNotification: Boolean = false,
     val taskNotificationTime: LocalTime? = null,
